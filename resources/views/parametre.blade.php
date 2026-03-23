@@ -41,7 +41,14 @@
                     <li><a href="{{ route('projects-list') }}">Projects</a></li>
                     <li><a href="{{ route('tickets-list') }}">Tickets</a></li>
                     <li><a href="{{ route('dashboard') }}" >Dashboard</a></li>
-                    <li><a href="{{ route('login') }}">Logout</a></li>
+                    <li>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit">
+                                Logout
+                            </button>
+                        </form>
+                    </li>
                 </ul>
             </nav>
         </aside>

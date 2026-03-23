@@ -1,28 +1,28 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\parametreController;
 use App\Http\Controllers\ticketListController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\loginController;
-use App\Http\Controllers\inscriptionController;
-use App\Http\Controllers\mdpLostController;
 use App\Http\Controllers\accountController;  
 use App\Http\Controllers\projectListController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\projectDetailController;
 use App\Http\Controllers\ticketDetailController;
-      
 
-Route::get('/', [loginController::class, 'login'])->name('login');
-Route::post('/login-check', [loginController::class, 'loginProcess'])->name('login.post');
 
-Route::get('/inscription', [inscriptionController::class, 'inscription'])->name('inscription');
-Route::post('/inscription', [inscriptionController::class, 'inscriptionProcess'])->name('inscription.post');
+Route::get('/', function () {
+    return redirect()->route('login');
+});
 
-Route::get('/mdp-lost', [mdpLostController::class, 'mdpLost'])->name('mdp-lost');
-Route::post('/mdp-lost', [mdpLostController::class, 'mdpLostProcess'])->name('mdpLost.post');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
+
     Route::get('/my-account', [accountController::class, 'myAccount'])->name('my-account');
     Route::post('/my-account/update-password', [accountController::class, 'updatePassword'])->name('my-account.password.update');
 
@@ -47,3 +47,4 @@ Route::middleware('auth')->group(function () {
     Route::post('/ticket-detail/update', [ticketDetailController::class, 'updateTicket'])->name('ticket-detail.update');
 });
 
+require __DIR__.'/auth.php';

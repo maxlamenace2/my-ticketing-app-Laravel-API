@@ -39,7 +39,14 @@
                     <li><a href="{{ route('tickets-list') }}">Tickets</a></li>
                     <li><a href="{{ route('ticket-detail', ['id' => $project->id]) }}" class="active">Ticket Detail</a></li>
                     <li><a href="{{ route('dashboard') }}" >Dashboard</a></li>
-                    <li><a href="{{ route('login') }}">Logout</a></li>
+                    <li>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit">
+                                Logout
+                            </button>
+                        </form>
+                    </li>
                     
                 </ul>
             </nav>
@@ -140,24 +147,24 @@
                 <div style="display: flex; gap: 15px;">
                     <div class="form-group" style="flex: 1;">
                         <label>Status</label>
-                        <select name="status" value="{{ $ticket->status }}">
-                            <option value="Nouveau">Nouveau</option>
-                            <option value="En cours" selected>En cours</option>
-                            <option value="Closed">Closed</option>
-                            <option value="En attente client">En attente client</option>
-                            <option value="Terminé">Terminé</option>
-                            <option value="À valider (client)">À valider (client)</option>
-                            <option value="Validé">Validé</option>
-                            <option value="Refusé">Refusé</option>
+                        <select name="status">
+                            <option value="Nouveau" {{ $ticket->status == 'Nouveau' ? 'selected' : '' }}>Nouveau</option>
+                            <option value="En cours" {{ $ticket->status == 'En cours' ? 'selected' : '' }}>En cours</option>
+                            <option value="Closed" {{ $ticket->status == 'Closed' ? 'selected' : '' }}>Closed</option>
+                            <option value="En attente client" {{ $ticket->status == 'En attente client' ? 'selected' : '' }}>En attente client</option>
+                            <option value="Terminé" {{ $ticket->status == 'Terminé' ? 'selected' : '' }}>Terminé</option>
+                            <option value="À valider (client)" {{ $ticket->status == 'À valider (client)' ? 'selected' : '' }}>À valider (client)</option>
+                            <option value="Validé" {{ $ticket->status == 'Validé' ? 'selected' : '' }}>Validé</option>
+                            <option value="Refusé" {{ $ticket->status == 'Refusé' ? 'selected' : '' }}>Refusé</option>
                         </select>
                     </div>
 
                     <div class="form-group" style="flex: 1;">
                         <label>Priority</label>
-                        <select name="priority" value="{{ $ticket->priority }}">
-                            <option value="low">Low</option>
-                            <option value="medium">Medium</option>
-                            <option value="high" selected>High</option>
+                        <select name="priority">
+                            <option value="low" {{ $ticket->priority == 'low' ? 'selected' : '' }}>Low</option>
+                            <option value="medium" {{ $ticket->priority == 'medium' ? 'selected' : '' }}>Medium</option>
+                            <option value="high" {{ $ticket->priority == 'high' ? 'selected' : '' }}>High</option>
                         </select>
                     </div>
                 </div>
@@ -165,9 +172,9 @@
                 <div style="display: flex; gap: 15px;">
                     <div class="form-group" style="flex: 1;">
                         <label>Billing Type</label>
-                        <select name="billing_type" value = "{{ $ticket->billing_type }}">
-                            <option value="included">Inclus / Gratuit</option>
-                            <option value="billable" selected>Facturable / Payant</option>
+                        <select name="billing_type">
+                            <option value="included" {{ $ticket->billing_type == 'included' ? 'selected' : '' }}>Inclus / Gratuit</option>
+                            <option value="billable" {{ $ticket->billing_type == 'billable' ? 'selected' : '' }}>Facturable / Payant</option>
                         </select>
                     </div>
 

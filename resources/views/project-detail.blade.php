@@ -41,7 +41,14 @@
                     <li><a href="{{ route('project-detail', ['id' => $project->id]) }}" class="active">Project Details</a></li>
                     <li><a href="{{ route('tickets-list') }}">Tickets</a></li>
                     <li><a href="{{ route('dashboard') }}" >Dashboard</a></li>
-                    <li><a href="{{ route('login') }}">Logout</a></li>
+                    <li>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit">
+                                Logout
+                            </button>
+                        </form>
+                    </li>
                 </ul>
             </nav>
         </aside>
@@ -240,7 +247,6 @@
                     <div class="form-group">
                         <label for="ticket-priority">Priority</label>
                         <select id="ticket-priority" name="ticket-priority">
-                            <option value="">-- None --</option>
                             <option value="low">Low</option>
                             <option value="medium">Medium</option>
                             <option value="high">High</option>
