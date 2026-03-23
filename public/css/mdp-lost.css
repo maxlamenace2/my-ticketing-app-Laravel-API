@@ -1,0 +1,171 @@
+
+body {
+    background-color: #F4F7FE; 
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+.login-text {
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #1B2559; 
+    font-family: 'Caveat', cursive;
+    font-size: 3rem;
+}
+
+
+.login-conection {
+    background: #FFFFFF; 
+    padding: 40px;
+    border-radius: 20px; 
+    box-shadow: 0px 18px 40px rgba(112, 144, 176, 0.12); 
+    max-width: 450px;
+    width: 90%;
+    margin: 20px auto;
+    backdrop-filter: none; 
+}
+
+
+.login-text1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #A3AED0; 
+}
+
+
+.login-interaction {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+
+.form-group label {
+    color: #1B2559; 
+    font-size: 14px;
+    margin-bottom: 8px;
+    font-weight: 700; 
+}
+
+
+.form-group input {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E5F2;
+    border-radius: 12px;
+    padding: 14px 16px;
+    color: #1B2559;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+
+.form-group input:focus {
+    border-color: #2D5BFF; 
+    box-shadow: 0px 10px 20px rgba(45, 91, 255, 0.1);
+}
+
+
+.form-group input::placeholder {
+    color: #A3AED0;
+    opacity: 0.6;
+}
+
+
+.login-btn {
+    width: 100%;
+    padding: 16px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    background-color: #2D5BFF; 
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #2449CC; 
+    box-shadow: 0px 10px 20px rgba(45, 91, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.login-btn:active {
+    transform: translateY(0);
+}
+
+.returnConnection {
+    color: #8F9BBA; 
+    text-decoration: none; /* Pas de soulignement moche */
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.returnConnection:hover {
+    color: #3498db; 
+    text-decoration: underline; 
+}
+
+/*ERREUR*/
+.error-text {
+    margin-top: 10px;
+    background-color: #cb9297;   /* rouge clair pastel */
+    color: #721C24;              /* rouge foncé lisible */
+    border: 1px solid #F5C6CB;   /* bordure douce */
+    border-radius: 10px;
+    padding: 10px 15px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.hidden {
+    display: none;
+}
+
+.success {
+    /* Positionnement : En bas à droite de l'écran */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    align-items: center;
+    text-align: center;
+
+    /* Esthétique */
+    background-color: #27ae60; /* Un vert émeraude plus doux et moderne */
+    color: white;              /* Texte blanc pour le contraste */
+    border-radius: 50px;       /* Bords bien arrondis (style pilule) */
+    
+    /* Espacement */
+    padding: 15px 30px;        /* De l'air autour du texte */
+    
+    /* Typographie */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    font-weight: 600;          /* Texte un peu gras */
+    
+    /* Finitions importantes */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Une ombre portée pour l'effet "flottant" */
+    z-index: 1000;             /* S'assure qu'il est au-dessus de tout le reste */
+    
+    /* Transition fluide pour l'apparition/disparition */
+    transition: all 0.5s ease-in-out;
+}

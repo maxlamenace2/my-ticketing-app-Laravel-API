@@ -1,0 +1,166 @@
+
+body {
+    background-color: #F4F7FE; 
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+.login-text {
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #1B2559; 
+    font-family: 'Caveat', cursive;
+    font-size: 3rem;
+}
+
+
+.login-conection {
+    background: #FFFFFF; 
+    padding: 40px;
+    border-radius: 20px; 
+    box-shadow: 0px 18px 40px rgba(112, 144, 176, 0.12); 
+    max-width: 450px;
+    width: 90%;
+    margin: 20px auto;
+    backdrop-filter: none; 
+}
+
+
+.login-text1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #A3AED0; 
+}
+
+
+.login-interaction {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+
+.form-group label {
+    color: #1B2559; 
+    font-size: 14px;
+    margin-bottom: 8px;
+    font-weight: 700; 
+}
+
+
+.form-group input {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E5F2;
+    border-radius: 12px;
+    padding: 14px 16px;
+    color: #1B2559;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+
+.form-group input:focus {
+    border-color: #2D5BFF; 
+    box-shadow: 0px 10px 20px rgba(45, 91, 255, 0.1);
+}
+
+
+.form-group input::placeholder {
+    color: #A3AED0;
+    opacity: 0.6;
+}
+
+.mdp-forgot {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 15px; 
+}
+
+.mdp-lost {
+    color: #8F9BBA; 
+    text-decoration: none; /* Pas de soulignement moche */
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.inscription{
+    color: #8F9BBA; 
+    text-decoration: none; /* Pas de soulignement moche */
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.mdp-lost:hover {
+    color: #3498db; /* Devient bleu clair au survol */
+    text-decoration: underline; /* Souligne pour confirmer que c'est un lien */
+}
+
+
+.login-btn {
+    width: 100%;
+    padding: 16px;
+    margin-top: 30px;
+    background-color: #2D5BFF; 
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #2449CC; 
+    box-shadow: 0px 10px 20px rgba(45, 91, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.login-btn:active {
+    transform: translateY(0);
+}
+
+/* --- TOAST --- */
+.toast {
+    visibility: hidden; 
+    min-width: 250px;
+    background-color: #e74c3c; 
+    color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    transform: translateX(-50%); 
+    bottom: 20px; 
+    font-size: 16px;
+    font-family: inherit;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transition: opacity 0.4s ease, bottom 0.4s ease, visibility 0.4s;
+}
+
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+    bottom: 40px; 
+}

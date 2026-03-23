@@ -1,0 +1,709 @@
+
+main {
+    flex: 1;
+    padding: 40px;
+    background-color: #F4F7FE; 
+    min-height: 100vh;
+    font-family: 'Segoe UI', 'Inter', sans-serif;
+}
+
+/*top*/
+.my-project-info {
+    background: #FFFFFF;
+    border-radius: 20px; 
+    padding: 40px;
+    margin: 0 auto 30px auto; 
+    max-width: 1400px;
+    box-shadow: 0 10px 30px rgba(112, 144, 176, 0.12); 
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+    border: none; 
+}
+
+
+.my-project-info-container-1 {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+
+.my-project-info-container-1 > div, .my-project-info-container-1-hours {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #F4F7FE; 
+}
+
+
+.my-project-info h1:first-child {
+    font-size: 14px;
+    font-weight: 500;
+    color: #A3AED0; 
+    margin: 0;
+    min-width: 100px; 
+}
+
+.my-project-info h1:nth-child(2) {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1B2559; 
+    margin: 0;
+}
+
+.my-project-info p {
+    margin: 0;
+    color: #707EAE; 
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/*Badge colab*/
+/*.cololaborators-list {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 5px;
+}*/
+
+
+
+.my-project-info-container-2 {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.my-project-info-container-2-contract {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.my-project-info-button {
+    background-color: #2D5BFF; 
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;/*!!!!!*/
+    transition: all 0.3s ease;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(45, 91, 255, 0.2);
+}
+
+.my-project-info-button:hover {
+    background-color: #2449CC;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(45, 91, 255, 0.3);
+}
+.my-project-info-button-edit{
+    background-color: #3c4f94; 
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;/*!!!!!*/
+    transition: all 0.3s ease;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(45, 91, 255, 0.2);
+}
+.my-project-info-button-edit:hover {
+    background-color: #1b379c;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(45, 91, 255, 0.3);
+}
+
+
+.my-project-info-2{
+    background: #FFFFFF;
+    border-radius: 20px; 
+    padding-top: 40px;
+    padding-bottom: 60px;
+    padding-left: 150px;
+    padding-right: 150px;
+    margin: 0 auto 30px auto; 
+    max-width: 1400px;
+    box-shadow: 0 10px 30px rgba(112, 144, 176, 0.12); 
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+    border: none; 
+}
+
+
+.my-project-info-container-3 {
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+/* =========================================
+   Ticket du projet
+   ========================================= */
+.above-ticket-table {
+    display: flex;
+}
+.filtre{
+    padding-left: 30px;
+}
+.btn-filtre-priority{
+    margin-left: 30px;
+    max-height: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: #2D5BFF;
+    border-radius: 10px;
+    color: white;
+    border: none;
+}
+.btn-filtre-priority:hover{
+    background: #0024a3;
+    color: white;
+}
+
+.hidden{
+    display:none;
+}
+
+.my-project-tickets {
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 30px;
+    margin: 0 auto;
+    max-width: 1400px;
+    box-shadow: 0 10px 30px rgba(112, 144, 176, 0.12);
+}
+
+
+.projects-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #E0E5F2;
+}
+
+.projects-list-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1B2559;
+    margin: 0;
+}
+
+.projects-list-create-btn {
+    background-color: #2D5BFF;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(45, 91, 255, 0.2);
+}
+
+.projects-list-create-btn:hover {
+    background-color: #2449CC;
+    transform: translateY(-2px);
+}
+
+
+.my-project-tickets h2 {
+    font-size: 16px;
+    color: #A3AED0;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+/* =========================================
+   TABLEAU DES TICKETS
+   ========================================= */
+.ticket-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* En-têtes */
+.ticket-table thead th {
+    text-align: left;
+    padding: 15px 20px;
+    font-size: 12px;
+    color: #A3AED0;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #E0E5F2;
+}
+
+.ticket-table tbody tr {
+    transition: background-color 0.2s;
+    border-bottom: 1px solid #F4F7FE;
+}
+
+.ticket-table tbody tr:hover {
+    background-color: #F8F9FC;
+}
+
+.ticket-table td {
+    padding: 18px 20px;
+    color: #2B3674; 
+    font-size: 14px;
+    font-weight: 600;
+    vertical-align: middle;
+}
+
+.ticket-table td:first-child {
+    color: #2D5BFF; 
+}
+
+.status-select {
+    padding: 8px 12px;
+    border: 1px solid #E0E5F2;
+    border-radius: 8px;
+    background: white;
+    color: #2B3674;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.status-select:focus {
+    border-color: #2D5BFF;
+    box-shadow: 0 0 0 2px rgba(45, 91, 255, 0.1);
+}
+
+.project-open_btn {
+    background: transparent;
+    border: 1px solid #2D5BFF;
+    color: #2D5BFF;
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.project-open_btn:hover {
+    background: #2D5BFF;
+    color: white;
+}
+
+.project-remove_btn {
+    background: transparent;
+    border: 1px solid #EE5D50; 
+    color: #EE5D50;
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.project-remove_btn:hover {
+    background: #EE5D50;
+    color: white;
+}
+
+.ticket-table td.ticket_not_find {
+    text-align: center !important;
+}
+
+
+
+
+/* =========================================
+   STYLES DU MODAL (POP-UP)
+   ========================================= */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.5); /* Fond sombre */
+    backdrop-filter: blur(4px);           /* Effet flou */
+    animation: fadeIn 0.3s;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    margin: 3% auto; /* Un peu plus haut que le milieu */
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 700px; /* Largeur max pour le formulaire */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    position: relative;
+    animation: slideIn 0.3s;
+}
+
+.close-btn-ticket {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    right: 25px;
+    top: 15px;
+    z-index: 10;
+}
+.close-btn-ticket:hover { color: #2D5BFF; }
+
+
+@keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+@keyframes slideIn { from {transform: translateY(-50px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
+
+/* =========================================
+   STYLES DU FORMULAIRE DANS LE MODAL
+   ========================================= */
+.ticket-create-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1; 
+}
+
+.modal-content label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1B2559;
+    margin-left: 4px;
+}
+
+.modal-content input[type="text"],
+.modal-content select,
+.modal-content textarea {
+    padding: 12px 15px;
+    border: 1px solid #E0E5F2;
+    border-radius: 12px;
+    font-size: 14px;
+    color: #1B2559;
+    background-color: #FFFFFF;
+    width: 100%; 
+    box-sizing: border-box; 
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.modal-content input:focus, 
+.modal-content select:focus, 
+.modal-content textarea:focus {
+    outline: none;
+    border-color: #2D5BFF;
+    box-shadow: 0 0 0 4px rgba(45, 91, 255, 0.1);
+}
+
+.modal-content textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+.ticketModal-title{
+    color: #1B2559;
+    margin-top: 0;
+}
+
+.submit-btn {
+    width: 100%;
+    background-color: #2D5BFF;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background-color: #2449CC;
+    transform: translateY(-2px);
+    box-shadow: 0px 10px 20px rgba(45, 91, 255, 0.2);
+}
+
+/*/////////////////////////*/
+/* =======================================================
+   1. FOND DU MODAL (L'arrière-plan sombre et flou)
+   ======================================================= */
+.modal0 {
+    display: none; /* Caché par défaut, le JS le passera en 'block' */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.5); 
+    backdrop-filter: blur(5px); 
+}
+
+/* =======================================================
+   2. LA BOITE BLANCHE (Le conteneur du formulaire)
+   ======================================================= */
+
+.Project-modal-cotent {
+    background-color: #ffffff;
+    margin: 5% auto; 
+    padding: 30px 40px;
+    border-radius: 20px; 
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2); 
+    position: relative;
+    font-family: 'Segoe UI', sans-serif;
+    animation: slideDown 0.3s ease-out; 
+}
+
+
+@keyframes slideDown {
+    from { transform: translateY(-30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* =======================================================
+   3. LE TITRE ET LE BOUTON FERMER
+   ======================================================= */
+.Project-Modal-title {
+    margin-top: 0;
+    margin-bottom: 25px;
+    color: #1B2559; 
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.Project-modale-close-btn {
+    color: #A3AED0;
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.Project-modale-close-btn:hover {
+    color: #2D5BFF;
+}
+
+/* =======================================================
+   4. LES CHAMPS DU FORMULAIRE (Inputs & Labels)
+   ======================================================= */
+
+.form-group0 {
+    margin-bottom: 20px;
+}
+
+.form-group0 label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 700;
+    color: #1B2559;
+    font-size: 14px;
+}
+
+
+.form-group0 input,.form-group0 textarea {
+    width: 100%;
+    padding: 12px 20px;
+    border: 1px solid #E0E5F2; 
+    border-radius: 12px; 
+    font-size: 14px;
+    color: #1B2559;
+    background-color: #FFFFFF;
+    box-sizing: border-box; 
+    font-family: 'Segoe UI', sans-serif;
+    outline: none;
+    transition: all 0.2s;
+}
+
+
+.form-group0 input:focus,
+.form-group0 textarea:focus {
+    border-color: #2D5BFF;
+    box-shadow: 0 0 0 3px rgba(45, 91, 255, 0.1); 
+}
+
+/* =======================================================
+   5. LA LIGNE DOUBLE COLONNE (Heures & Budget)
+   ======================================================= */
+
+.form-row0 {
+    display: flex;
+    gap: 20px; 
+    margin-bottom: 20px;
+}
+
+.form-row0 .form-group0 {
+    flex: 1; 
+    margin-bottom: 0; 
+}
+
+/* =======================================================
+   6. LE BOUTON DE VALIDATION
+   ======================================================= */
+.project-submit-btn {
+    width: 100%;
+    background-color: #2D5BFF; 
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.project-submit-btn:hover {
+    background-color: #1a45d6; 
+    transform: translateY(-1px);
+}
+
+
+/*/////////////////////////////////////////////////*/
+
+
+
+
+
+.error-text {
+    background-color: #cb9297;
+    color: #721C24;
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 5px;
+}
+
+/* Le Toast de succès */
+.success {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #27ae60;
+    color: white;
+    border-radius: 50px;
+    padding: 15px 30px;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 2000;
+    transition: all 0.5s ease-in-out;
+}
+
+.hidden { display: none; }
+
+
+
+
+/* =========================================
+   Responsive
+   ========================================= */
+
+/* Responsive Modal */
+@media (max-width: 600px) {
+    .form-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+@media screen and (max-width: 900px) {
+
+    main {
+        padding: 15px; 
+    }
+
+    .my-project-info {
+        flex-direction: column; 
+        padding: 20px;          
+        gap: 30px;
+    }
+
+    .my-project-info-container-1, 
+    .my-project-info-container-2 {
+        width: 100%;
+        flex: auto;
+    }
+
+    .my-project-info-container-1 > div {
+        flex-wrap: wrap; 
+    }
+    
+    .my-project-info-container-2-contract {
+        margin-top: 0;
+    }
+
+
+    /* 3. Deuxième Tableau (Ticket List)  */
+    
+    /* cache les colonnes*/
+    .ticket-table th:nth-child(3), .ticket-table td:nth-child(3),
+    .ticket-table th:nth-child(4), .ticket-table td:nth-child(4),
+    .ticket-table th:nth-child(5), .ticket-table td:nth-child(5),
+    .ticket-table th:nth-child(7), .ticket-table td:nth-child(7) {
+        display: none;
+    }
+
+    .ticket-table th, 
+    .ticket-table td {
+        padding: 12px 5px; 
+        font-size: 13px;   
+    }
+
+    .project-open_btn {
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+    
+    .projects-list-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start; /* pour aligné coté*/
+    }
+    
+    .projects-list-create-btn {
+        width: 100%; 
+        text-align: center;
+    }
+}

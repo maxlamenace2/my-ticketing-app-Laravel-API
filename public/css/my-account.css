@@ -1,0 +1,177 @@
+/* --- VARIABLES & BASE --- */
+:root {
+    --primary-blue: #253d93;
+    --accent-blue: #3498db;
+    --light-bg: #F4F7FE;
+    --white: #ffffff;
+    --text-dark: #1B2559;
+    --text-grey: #8F9BBA;
+    --border-color: #E0E5F2;
+    --danger: #e74c3c;
+    --success: #2ecc71;
+}
+
+.my-account-main {
+    flex-grow: 1;
+    padding: 30px;
+    background-color: var(--light-bg);
+    overflow-y: auto;
+}
+
+/* --- TITRE DE LA PAGE --- */
+.page-header {
+    margin-bottom: 30px;
+}
+
+.page-header h1 {
+    font-size: 28px;
+    color: var(--text-dark);
+    margin-bottom: 5px;
+}
+
+.page-header p {
+    color: var(--text-grey);
+    font-size: 14px;
+}
+
+/* --- GRILLE DE MISE EN PAGE --- */
+.account-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* Profil à gauche (petit), Sécurité à droite (grand) */
+    gap: 30px;
+}
+
+/* --- STYLE GÉNÉRAL DES CARTES --- */
+.card {
+    background-color: var(--white);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.card h2 {
+    color: var(--text-dark);
+    font-size: 20px;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+/* --- CARTE PROFIL (GAUCHE) --- */
+.profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.avatar-circle {
+    width: 80px;
+    height: 80px;
+    background-color: var(--primary-blue);
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.user-name {
+    font-size: 18px;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+
+.role-badge {
+    background-color: rgba(52, 152, 219, 0.1); /* Bleu clair transparent */
+    color: var(--accent-blue);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.detail-group {
+    margin-bottom: 15px;
+}
+
+.detail-group label {
+    display: block;
+    font-size: 12px;
+    color: var(--text-grey);
+    margin-bottom: 4px;
+}
+
+.detail-group p {
+    color: var(--text-dark);
+    font-weight: 500;
+    font-size: 14px;
+    word-break: break-all; /* Pour éviter que l'email sorte de la boite */
+}
+
+/* --- CARTE SÉCURITÉ (DROITE) --- */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s;
+    color: var(--text-dark);
+}
+
+.form-group input:focus {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.form-actions {
+    margin-top: 30px;
+    text-align: right; /* Bouton à droite */
+}
+
+.btn-primary {
+    background-color: var(--primary-blue);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-blue);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 900px) {
+    .account-grid {
+        grid-template-columns: 1fr; /* Sur mobile, les cartes s'empilent */
+    }
+    
+    .my-account-main {
+        padding: 15px; /* Moins de marge sur mobile */
+    }
+}

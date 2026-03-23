@@ -1,0 +1,164 @@
+
+.ticket-create-main {
+    flex: 1;
+    padding: 40px;
+    background-color: #F4F7FE; 
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    min-height: calc(100vh - 70px); 
+}
+
+.ticket-create-section {
+    background-color: #FFFFFF;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0px 18px 40px rgba(112, 144, 176, 0.12); 
+    max-width: 700px; 
+    width: 100%;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.ticket-create-section h1 {
+    color: #1B2559; 
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.ticket-create-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1; 
+}
+
+label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1B2559;
+    margin-left: 4px;
+}
+
+input[type="text"],
+select,
+textarea {
+    padding: 14px 20px;
+    border: 1px solid #E0E5F2;
+    border-radius: 12px;
+    font-size: 15px;
+    color: #1B2559;
+    background-color: #FFFFFF;
+    transition: all 0.2s ease;
+    width: 100%; 
+}
+
+input::placeholder, textarea::placeholder {
+    color: #A3AED0;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #2D5BFF;
+    box-shadow: 0 0 0 4px rgba(45, 91, 255, 0.1);
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.form-btn-container {
+    margin-top: 10px;
+}
+
+.submit-btn {
+    width: 100%;
+    background-color: #2D5BFF;
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #2449CC;
+    box-shadow: 0px 10px 20px rgba(45, 91, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+.hidden {
+    display: none;
+}
+
+.error-text {
+    background-color: #cb9297;   /* rouge clair pastel */
+    color: #721C24;              /* rouge foncé lisible */
+    border: 1px solid #F5C6CB;   /* bordure douce */
+    border-radius: 10px;
+    padding: 10px 15px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.success {
+    /* Positionnement : En bas à droite de l'écran */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    align-items: center;
+    text-align: center;
+
+    /* Esthétique */
+    background-color: #27ae60; /* Un vert émeraude plus doux et moderne */
+    color: white;              /* Texte blanc pour le contraste */
+    border-radius: 50px;       /* Bords bien arrondis (style pilule) */
+    
+    /* Espacement */
+    padding: 15px 30px;        /* De l'air autour du texte */
+    
+    /* Typographie */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    font-weight: 600;          /* Texte un peu gras */
+    
+    /* Finitions importantes */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Une ombre portée pour l'effet "flottant" */
+    z-index: 1000;             /* S'assure qu'il est au-dessus de tout le reste */
+    
+    /* Transition fluide pour l'apparition/disparition */
+    transition: all 0.5s ease-in-out;
+}
+
+/*
+ responsive
+ */
+
+ @media (max-width: 600px) {
+    .form-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
