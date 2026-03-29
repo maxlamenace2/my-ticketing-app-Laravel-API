@@ -15,42 +15,51 @@ class projectListController extends Controller
         return view('projects-list', compact('projects'));    
     }
 
-    public function projectsListCreate(Request $request)
-    {
-        $validated = $request->validate([
-            'project-name' => 'required|string|max:255',
-            'project-client' => 'nullable|string|max:255', 
-            'project-details' => 'required|string',
-            'collaborators' => 'required|string|max:255',
-        ]);
-
-        
-        Project::create([
-            'user_id' => Auth::id(), 
-            'ProjectName' => $validated['project-name'],
-            'Client' => $validated['project-client'],
-            'Description' => $validated['project-details'],
-            'Collaborateur' => $validated['collaborators'],
-        ]);
-
-        return redirect()->route('projects-list');
-    }
-
-    public function projectsListDelete(Request $request)
-    {
-        
-        $validated = $request->validate([
-            'id' => ['required', 'integer', 'exists:projects,id'], 
-        ]);
-
-        $project = Project::findOrFail($validated['id']);
-
     
-        if(auth()->id() != $project->user_id) {
-             abort(403, 'Unauthorized action.'); 
+    public function destroyApiProject($id)
+    {
+        $project = Project::findOrFail($id);
+        
+        // Sécurité : on vérifie que le projet lui appartient
+        if(Auth::id() != $project->user_id) {
+             return response()->json(['message' => 'Non autorisé.'], 403); 
         }
         
         $project->delete();
-        return redirect()->route('projects-list');
+        return response()->json(['message' => 'Projet supprimé avec succès.']);
     }
+
+    
+    public function storeApi(Request $request)
+    {
+        $validated = $request->validate([
+            'project-name'    => ['required', 'string', 'max:255'],
+            'project-client'  => ['nullable', 'string', 'max:255'],
+            'project-details' => ['nullable', 'string'],
+            'collaborators'   => ['nullable', 'string', 'max:255'],
+        ]);
+
+        $project = Project::create([
+            'user_id'       => Auth::id(), 
+            'ProjectName'   => $validated['project-name'],
+            'Client'        => $validated['project-client'],
+            'Description'   => $validated['project-details'],
+            'Collaborateur' => $validated['collaborators'],
+        ]);
+
+        return response()->json([
+            'message' => 'Projet ajouté avec succès.',
+            'project' => [
+                'id'            => $project->id,
+                'ProjectName'   => $project->ProjectName,
+                'Client'        => $project->Client,
+                'Description'   => $project->Description,
+                'Collaborateur' => $project->Collaborateur,
+                'show_url'      => route('project-detail', $project->id),
+                'destroy_url'   => route('api.projects.destroy' , $project->id),
+            ],
+        ], 201);
+    }
+
+
 }

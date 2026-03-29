@@ -83,16 +83,7 @@
                                 <td>{{ $ticket->project->ProjectName }}</td>
                                 <td>{{ $ticket->title }}</td>
                                 <td>
-                                    <select class="status-select" value ="{{ $ticket->status }}">
-                                        <option value="Nouveau">Nouveau</option>
-                                        <option value="En cours" selected>En cours</option>
-                                        <option value="Closed">Closed</option>
-                                        <option value="En attente client">En attente client</option>
-                                        <option value="Terminé">Terminé</option>
-                                        <option value="À valider (client)">À valider (client)</option>
-                                        <option value="Validé">Validé</option>
-                                        <option value="Refusé">Refusé</option>
-                                    </select>
+                                    {{ $ticket->status }}
                                 </td>
                                 <td class="status">{{ $ticket->priority }}</td>
                                 <td>{{ $ticket->assigned_to }}</td>
@@ -102,12 +93,9 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <form action="{{ route('ticket.list.delete') }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce ticket ?');">
+                                    <form action="{{ route('api.tickets.destroy', $ticket->id) }}" method="POST" class="api-delete-ticket">
                                         @csrf
                                         @method('DELETE')
-                                        
-                                        <input type="hidden" name="ticket_id" value="{{ $ticket->id }}">
-                                        
                                         <button type="submit" class="ticket-remove_btn">Remove</button>
                                     </form>
                                 </td>
@@ -125,7 +113,7 @@
             
             <h2>Create a new Ticket</h2>
 
-            <form class="ticket-create-form" action="{{ route('tickets.create') }}" method="POST">
+            <form id="api-ticket-form" action="{{ route('api.tickets.store') }}" method="POST">
                 @csrf
 
                 

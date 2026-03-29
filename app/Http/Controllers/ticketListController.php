@@ -23,11 +23,11 @@ class ticketListController extends Controller
         return view('tickets-list', compact('tickets', 'projects'));
     }
 
-    public function ticketListCreate(Request $request)
+    public function storeApi(Request $request)
     {
         $validated = $request->validate([
             'project_id'   => 'required|integer|exists:projects,id',
-            'title'        => 'required|string|max:255', # name du html
+            'title'        => 'required|string|max:255',
             'status'       => 'required|string',        
             'priority'     => 'nullable|string',         
             'billing_type' => 'nullable|string',         
@@ -37,14 +37,13 @@ class ticketListController extends Controller
         ]);
 
         $project = Project::findOrFail($validated['project_id']);
-        if (Auth::id() !== $project->user_id) {
-            abort(403, 'fail');
+        if (Auth::id() != $project->user_id) {
+            return response()->json(['message' => 'Non autorisé.'], 403);
         }
 
-        Ticket::create([
+        $ticket = Ticket::create([
             'project_id'   => $validated['project_id'],
             'user_id'      => Auth::id(), 
-            
             'title'        => $validated['title'], 
             'description'  => $validated['description'],
             'status'       => $validated['status'],
@@ -54,24 +53,34 @@ class ticketListController extends Controller
             'assigned_to'  => $validated['assigned_to'], 
         ]);
 
-        return redirect()->route('tickets-list')->with('success', 'Nouveau ticket créé avec succès !');
+        // 4. LE GRAND CHANGEMENT : On renvoie du JSON pour ton JavaScript !
+        return response()->json([
+            'message' => 'Nouveau ticket créé avec succès !',
+            'ticket' => [
+                'id'           => $ticket->id,
+                'title'        => $ticket->title,
+                'status'       => $ticket->status,
+                'priority'     => $ticket->priority,
+                'assigned_to'  => $ticket->assigned_to,
+                'projectName'  => $project->ProjectName, // Très pratique pour l'affichage JS
+                // Tes routes pour les boutons :
+                'show_url'     => route('ticket-detail', $ticket->id),
+                'destroy_url'  => route('api.tickets.destroy', $ticket->id),
+            ],
+        ], 201);
     }
 
 
-    public function TicketListDelete(Request $request)
+    public function destroyApiTicket($id)
     {
-        $validated = $request->validate([
-            'ticket_id' => 'required|integer|exists:tickets,id',
-        ]);
-
-        $ticket = Ticket::findOrFail($validated['ticket_id']);
-
-        if (Auth::id() !== $ticket->project->user_id) {
-            abort(403, 'Vous n\'êtes pas autorisé à supprimer ce ticket.');
+        $ticket = Ticket::findOrFail($id);
+        
+        // Sécurité : on vérifie que le ticket appartient à un de ses projets
+        if (Auth::id() != $ticket->project->user_id) {
+            return response()->json(['message' => 'Non autorisé.'], 403);
         }
-
+        
         $ticket->delete();
-
-        return back()->with('success', 'Le ticket a été supprimé avec succès !');
+        return response()->json(['message' => 'Ticket supprimé avec succès.']);
     }
 }

@@ -54,11 +54,11 @@
                 
                 <div class="projects-list-header">
                     <h1 class="projects-list-title">Projects List</h1>
-                    <a href="#" id="openModalBtn" class="projects-list-create-btn">+ Create New Project</a>
+                    <a href="#" id="openModalBtn" class="projects-list-create-btn">+ Create New Project</a>    
                 </div>
 
                 <div class="table-container">
-                    <table class="ticket-table">
+                    <table class="project-table">
                         <thead>
                             <tr>
                                 <th>Project Name</th>
@@ -87,10 +87,9 @@
                                         <!-- mettre id dasn le lien du bouton}-->
                                     </td>
                                     <td class="center"> 
-                                        <form action="{{ route('project-detail-delete') }}" method="POST">
+                                        <form action="{{ route('api.projects.destroy', $project->id) }}" method="POST" class="api-delete-project">
                                             @csrf
                                             @method('DELETE')
-                                            <input type="hidden" name="id" value="{{ $project->id }}"> 
                                             <button type="submit" class="project-remove_btn">Remove</button>
                                         </form>
                                     </td>
@@ -104,13 +103,13 @@
         </main>
     </div>
 
-    <div id="projectModal" class="modal">
+    <dialog id="projectModal" class="modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
             
             <h2 class="create-project-title">Create a new Project</h2>
             
-            <form id="projects-create-form" class="project-create-form" action="{{ route('project.create') }}" method="post">
+            <form id="api-project-form" class="project-create-form" action="{{ route('api.projects.store') }}" method="POST">
                 @csrf
                 <div class="form-name">
                     <label for="projectName">Project Name:</label>
@@ -142,7 +141,7 @@
                 <h4>Project created</h4>
             </div>
         </div>
-    </div>
+    </dialog>
 
     <script src="{{ asset('js/script.js') }}"></script>
     <script src="{{ asset('js/project_list.js') }}"></script>

@@ -192,7 +192,7 @@
                 <div class="form-group">
                     <label>Assigned To</label>
                     @if($ticket->assigned_to)
-                        <input type="text" name="title" value="{{ $ticket->assigned_to }}" required>
+                        <input type="text" name="assigned_to" value="{{ $ticket->assigned_to }}" placeholder="Ex: Maxence">
                     @endif
                 </div>
 

@@ -61,13 +61,13 @@
     overflow-x: auto; /* pour permttre la srcoll horizontal si écran petit*/
 }
 
-.ticket-table {
+.project-table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
 }
 
-.ticket-table thead th {
+.project-table thead th {
     text-align: left;
     padding: 15px 20px;
     font-size: 12px;
@@ -78,22 +78,22 @@
     /*border-bottom: 1px solid #E0E5F2;*/
 }
 
-.ticket-table thead th:nth-child(-n+3) {
+.project-table thead th:nth-child(-n+3) {
     text-align: left;
 }
-.ticket-table thead th.center {
+.project-table thead th.center {
     text-align: center !important; 
 }
 
-.ticket-table tbody tr {
+.project-table tbody tr {
     transition: all 0.2s ease;
 }
 
-.ticket-table tbody tr:hover {
+.project-table tbody tr:hover {
     background-color: #F8F9FC; 
 }
 
-.ticket-table td {
+.project-table td {
     padding: 20px;
     border-bottom: 1px solid #F4F7FE;
     color: #2B3674; 
@@ -102,7 +102,7 @@
     vertical-align: middle;
 }
 
-.ticket-table td p {
+.project-table td p {
     margin: 0;
     color: #707EAE;
     font-weight: 400;
@@ -161,6 +161,12 @@
     color: #ffffff;
     box-shadow: 0 4px 12px rgba(45, 91, 255, 0.2);
     transform: translateY(-1px);
+}
+
+.fade-out-row {
+    opacity: 0;
+    transform: translateX(50px); 
+    transition: all 0.5s ease-out;
 }
 
 /* =========================================

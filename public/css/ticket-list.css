@@ -103,18 +103,11 @@
     font-weight: 700;
 }
 
-.status-select {
-    padding: 8px 12px;
-    border: 1px solid #E0E5F2;
-    border-radius: 10px;
-    background-color: #ffffff;
-    color: #2B3674;
-    font-weight: 600;
-    font-size: 13px;
-    cursor: pointer;
-    outline: none;
-    min-width: 130px;
+.ticket-table-list td:nth-child(3) {
+    font-weight: bold;
+    color: #2D5BFF;
 }
+
 
 .ticket-table-list a {
     text-decoration: none;
@@ -180,9 +173,15 @@
     background: #0024a3;
     color: white;
 }
-/* S'assure que le texte reste blanc même au survol */
+
 .above-ticket-table a:hover {
     text-decoration: none;
+}
+
+.fade-out-row {
+    opacity: 0;
+    transform: translateX(50px); 
+    transition: all 0.5s ease-out;
 }
 
 

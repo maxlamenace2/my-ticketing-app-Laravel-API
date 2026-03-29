@@ -29,12 +29,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/parametre', [parametreController::class, 'Parametre'])->name('parametre');
 
     Route::get('/projects-list', [projectListController::class, 'projectsList'])->name('projects-list');
-    Route::post('/projects-list', [projectListController::class, 'projectsListCreate'])->name('project.create');
-    Route::delete('/projects-list-delete', [projectListController::class, 'projectsListDelete'])->name('project-detail-delete');
 
     Route::get('/tickets-list', [ticketListController::class, 'ticketList'])->name('tickets-list');
-    Route::post('/tickets-list', [ticketListController::class, 'ticketListCreate'])->name('tickets.create');
-    Route::delete('/tickets-list-delete', [ticketListController::class, 'TicketListDelete'])->name('ticket.list.delete');
 
     Route::get('/dashboard', [dashboardController::class, 'dashboard'])->name('dashboard');
 
