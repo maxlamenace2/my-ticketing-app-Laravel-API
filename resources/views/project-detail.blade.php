@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -80,7 +78,7 @@
 
                 <div class="my-project-info-container-2">
                     <div>
-                        <button id="openProjectModalBtn" class="my-project-info-button-edit"> Edit projet </button>
+                        <button id="openProjectModalBtn" class="my-project-info-button-edit" onclick="openProjectEditModal()"> Edit projet </button>
                     </div>
                 </div>
             </section>
@@ -102,7 +100,7 @@
             <section class="my-project-tickets">
                 <div class="projects-list-header">
                     <h1 class="projects-list-title">Ticket List</h1>
-                    <a href="#" id="openTicketModalBtn" class="projects-list-create-btn">New ticket</a>
+                    <btn href="#" id="openTicketModalBtn" class="projects-list-create-btn" onclick="openTicketModal()">New ticket</btn>
                 </div>
                 <div class="above-ticket-table">
                     <h2>Tickets for all project</h2>
@@ -145,12 +143,9 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <form action="{{ route('project-detail.ticket.delete') }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce ticket ?');">
+                                        <form action="{{ route('api.tickets.destroy', $ticket->id) }}" method="POST" class="api-delete-ticket" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce ticket ?');">
                                             @csrf
                                             @method('DELETE')
-                                            
-                                            <input type="hidden" name="ticket_id" value="{{ $ticket->id }}">
-                                            
                                             <button type="submit" class="project-remove_btn">Remove</button>
                                         </form>
                                     </td>
@@ -160,8 +155,9 @@
                     </tbody>
                 </table>
             </section>
-
-
+            <div id="update-project-toats-success" class="toastUpdate">
+                Projet mis à jour avec succès !
+            </div>
         </main>
     </div>
 
@@ -169,13 +165,13 @@
 
     <div id="ProjetModal" class="modal0">
         <div class="Project-modal-cotent">
-            <span class="Project-modale-close-btn">&times;</span>
+            <span class="Project-modale-close-btn" onclick="closeProjectEditModal()">&times;</span>
 
             <h2 class="Project-Modal-title">Modify the project</h2>
 
-            <form id="project_modal_form" class="project-modal-modify-form" action="{{ route('project-detail.update') }}" method="POST">
+            <form id="api-update-project-form" class="project-modal-modify-form" action="{{ route('api.projects.update', $project->id) }}" method="POST">
                 @csrf
-                <input type="hidden" name="project_id" value="{{ $project->id }}">
+                @method('PUT') 
 
                 <div class="form-group0">
                     <label>Nom du projet</label>
@@ -203,36 +199,33 @@
                     </div>
                 </div>
 
-                <button type="submit" class="project-submit-btn">Sauvegarder les modifications</button>
+                <button type="submit" class="project-submit-btn" onclick="closeProjectEditModal()">Sauvegarder les modifications</button>
 
-                <div id="success" class="success hidden">
-                    <h4>Project Update</h4>
-                </div>
             </form>
         </div>
     </div>
 
     <div id="ticketModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn-ticket">&times;</span>
+            <span class="close-btn-ticket"  onclick="closeTicketModal()">&times;</span>
 
             <h2 class="ticketModal-title">Create a new Ticket</h2>
 
-            <form id="tickets_create_form" class="ticket-create-form" action="{{ route('project-detail.ticket.create') }}" method="POST">
+            <form id="tickets_create_form" class="ticket-create-form" action="{{ route('api.tickets.store') }}" method="POST">
                 @csrf
                 
                 <input type="hidden" name="project_id" value="{{ $project->id }}">
 
                 <div class="form-group">
                     <label for="ticketName">Title</label>
-                    <input id="ticketName" type="text" name="project-name" placeholder="Enter ticket title">
+                    <input id="ticketName" type="text" name="title" placeholder="Enter ticket title">
                     <div id="ticket-name-error-void" class="error-text hidden">Le titre du ticket est obligatoire</div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="ticket-status">Status</label>
-                        <select id="ticket-status" name="ticket-status">
+                        <select id="ticket-status" name="status">
                             <option value="Nouveau">Nouveau</option>
                             <option value="En cours">En cours</option>
                             <option value="Closed">Closed</option>
@@ -246,7 +239,7 @@
 
                     <div class="form-group">
                         <label for="ticket-priority">Priority</label>
-                        <select id="ticket-priority" name="ticket-priority">
+                        <select id="ticket-priority" name="priority">
                             <option value="low">Low</option>
                             <option value="medium">Medium</option>
                             <option value="high">High</option>
@@ -257,7 +250,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="ticket-type">Billing Type</label>
-                        <select id="ticket-type" name="ticket-type">
+                        <select id="ticket-type" name="billing_type">
                             <option value="included">Inclus / Gratuit</option>
                             <option value="billable">Facturable / Payant</option>
                         </select>
@@ -265,7 +258,7 @@
 
                     <div class="form-group">
                         <label for="real-time">Real Time Spent</label>
-                        <input id="ticketTime" type="text" name="real-time" placeholder="Ex: 2h 30m">
+                        <input id="ticketTime" type="text" name="time_spent" placeholder="Ex: 2h 30m">
                         <div id="ticket-time-error-void" class="error-text hidden">Les heures sont obligatoires</div>
                         <div id="ticket-time-error-format" class="error-text hidden">Mauvais format : Format demandé :
                             ..h ..m</div>
@@ -274,7 +267,7 @@
 
                 <div class="form-group">
                     <label for="ticket-details">Description</label>
-                    <textarea id="ticket-details" name="project-details"
+                    <textarea id="ticket-details" name="description"
                         placeholder="Describe the details..."></textarea>
                     <div id="ticket-description-error-void" class="error-text hidden">La Description est obligatoire
                     </div>
@@ -282,16 +275,11 @@
 
                 <div class="form-group">
                     <label for="ticketCollaborator">Assigned To (Collaborators)</label>
-                    <select id="ticketCollaborator" name="assigned_to">
-                        <option value="">-- Non assigné --</option>
-                        <option value="Maxence">Maxence</option>
-                        <option value="Timéo">Timéo</option>
-                        <option value="Aurèle">Aurèle</option>
-                    </select>
+                    <input id="ticketCollaborateur" type="text" name="assigned_to" placeholder="Enter collaborateur (Comma separeted)" required>
                 </div>
 
                 <div class="form-btn-container">
-                    <button type="submit" class="submit-btn">Create Ticket</button>
+                    <button type="submit" class="submit-btn" onclick="closeTicketModal()" >Create Ticket</button>
                 </div>
             </form>
 
@@ -300,8 +288,6 @@
             </div>
         </div>
     </div>
-
-
 
     <script src="{{ asset('js/script.js') }}"></script>
     <script src="{{ asset('js/project-detail.js') }}"></script>

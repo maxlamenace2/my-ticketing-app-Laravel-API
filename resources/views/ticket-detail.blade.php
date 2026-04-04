@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -127,6 +125,11 @@
                             
             </section>       
         </main>
+
+        <div id="update-success-msg" class="toastUpdate">
+            Mise à jour réussie !
+        </div>
+
     </div>
 
     <div id="ticketEditModal" class="modal">
@@ -134,11 +137,10 @@
             <span class="close-btn" onclick="closeEditModal()">&times;</span>
             <h2 class="ticketModal-title">Edit Ticket</h2>
 
-            <form action="{{ route('ticket-detail.update') }}" method="POST">
+            <form id="api-update-ticket-form" action="{{ route('api.tickets.update', $ticket->id) }}" method="POST">
                 @csrf
-                
-                <input type="hidden" name="ticket_id" value="{{ $ticket->id }}">
-
+                @method('PUT') 
+            
                 <div class="form-group">
                     <label>Title</label>
                     <input type="text" name="title" value="{{ $ticket->title }}" required>

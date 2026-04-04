@@ -53,7 +53,7 @@ class ticketListController extends Controller
             'assigned_to'  => $validated['assigned_to'], 
         ]);
 
-        // 4. LE GRAND CHANGEMENT : On renvoie du JSON pour ton JavaScript !
+
         return response()->json([
             'message' => 'Nouveau ticket créé avec succès !',
             'ticket' => [
@@ -62,8 +62,8 @@ class ticketListController extends Controller
                 'status'       => $ticket->status,
                 'priority'     => $ticket->priority,
                 'assigned_to'  => $ticket->assigned_to,
-                'projectName'  => $project->ProjectName, // Très pratique pour l'affichage JS
-                // Tes routes pour les boutons :
+                'projectName'  => $project->ProjectName, 
+
                 'show_url'     => route('ticket-detail', $ticket->id),
                 'destroy_url'  => route('api.tickets.destroy', $ticket->id),
             ],
@@ -75,7 +75,6 @@ class ticketListController extends Controller
     {
         $ticket = Ticket::findOrFail($id);
         
-        // Sécurité : on vérifie que le ticket appartient à un de ses projets
         if (Auth::id() != $ticket->project->user_id) {
             return response()->json(['message' => 'Non autorisé.'], 403);
         }

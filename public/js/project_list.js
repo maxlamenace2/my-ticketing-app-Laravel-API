@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // 2. GESTION DU FORMULAIRE API (AJAX)
     // ==========================================
     const form = document.getElementById('api-project-form');
-    const tableBody = document.querySelector('.project-table tbody') || document.querySelector('table tbody');
+    const tableBody = document.querySelector('.project-table tbody') 
 
     if(form) {
         form.addEventListener('submit', function(event) {

@@ -1,10 +1,7 @@
-
-
-
 .projects-list-main {
     flex: 1;
     padding: 40px;
-    background-color: #F4F7FE; 
+    background-color: #F4F7FE;
     min-height: 100vh;
     font-family: 'Segoe UI', sans-serif;
 }
@@ -12,9 +9,9 @@
 
 .projects-list-section {
     background: #FFFFFF;
-    border-radius: 20px; 
+    border-radius: 20px;
     padding: 30px;
-    box-shadow: 0 10px 30px rgba(112, 144, 176, 0.1); 
+    box-shadow: 0 10px 30px rgba(112, 144, 176, 0.1);
     max-width: 1400px;
     margin: 0 auto;
 }
@@ -26,20 +23,20 @@
     align-items: center;
     margin-bottom: 30px;
     padding-bottom: 20px;
-    border-bottom: 1px solid #E0E5F2; 
+    border-bottom: 1px solid #E0E5F2;
 }
 
 .projects-list-title {
     font-size: 24px;
     font-weight: 700;
-    color: #1B2559; 
+    color: #1B2559;
     margin: 0;
-    font-family: 'Segoe UI', sans-serif; 
+    font-family: 'Segoe UI', sans-serif;
 }
 
 /* Bouton "Create New Project" */
 .projects-list-create-btn {
-    background-color: #2D5BFF; 
+    background-color: #2D5BFF;
     color: white;
     padding: 12px 24px;
     border-radius: 12px;
@@ -58,7 +55,8 @@
 
 
 .table-container {
-    overflow-x: auto; /* pour permttre la srcoll horizontal si écran petit*/
+    overflow-x: auto;
+    /* pour permttre la srcoll horizontal si écran petit*/
 }
 
 .project-table {
@@ -71,7 +69,7 @@
     text-align: left;
     padding: 15px 20px;
     font-size: 12px;
-    color: #A3AED0; 
+    color: #A3AED0;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -81,8 +79,9 @@
 .project-table thead th:nth-child(-n+3) {
     text-align: left;
 }
+
 .project-table thead th.center {
-    text-align: center !important; 
+    text-align: center !important;
 }
 
 .project-table tbody tr {
@@ -90,13 +89,13 @@
 }
 
 .project-table tbody tr:hover {
-    background-color: #F8F9FC; 
+    background-color: #F8F9FC;
 }
 
 .project-table td {
     padding: 20px;
     border-bottom: 1px solid #F4F7FE;
-    color: #2B3674; 
+    color: #2B3674;
     font-size: 14px;
     font-weight: 600;
     vertical-align: middle;
@@ -107,13 +106,13 @@
     color: #707EAE;
     font-weight: 400;
     font-size: 13px;
-    max-width: 300px; 
+    max-width: 300px;
 }
 
 .collaborator-badge {
     display: inline-block;
-    background-color: #EFF4FB; 
-    color: #2D5BFF; 
+    background-color: #EFF4FB;
+    color: #2D5BFF;
     padding: 5px 12px;
     border-radius: 20px;
     font-size: 11px;
@@ -126,7 +125,7 @@
 .project-open_btn {
     display: inline-block;
     color: #2D5BFF;
-    background: transparent; 
+    background: transparent;
     border: 1px solid #2D5BFF;
     padding: 8px 24px;
     border-radius: 10px;
@@ -143,10 +142,10 @@
     transform: translateY(-1px);
 }
 
-.project-remove_btn{
+.project-remove_btn {
     display: inline-block;
     color: #ff2d2d;
-    background: transparent; 
+    background: transparent;
     border: 1px solid #ff2d2d;
     padding: 8px 24px;
     border-radius: 10px;
@@ -156,7 +155,7 @@
     transition: all 0.3s ease;
 }
 
-.project-remove_btn:hover{
+.project-remove_btn:hover {
     background: #d02e2e;
     color: #ffffff;
     box-shadow: 0 4px 12px rgba(45, 91, 255, 0.2);
@@ -165,7 +164,7 @@
 
 .fade-out-row {
     opacity: 0;
-    transform: translateX(50px); 
+    transform: translateX(50px);
     transition: all 0.5s ease-out;
 }
 
@@ -173,22 +172,23 @@
    NOUVEAU : STYLE DU MODAL (POP-UP)
    ========================================= */
 .modal {
-    display: none; 
-    position: fixed; 
-    z-index: 1000; 
+    display: none;
+    position: fixed;
+    z-index: 1000;
     left: 0;
     top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgba(0,0,0,0.5); 
-    backdrop-filter: blur(4px); /*FLOU*/
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    /*FLOU*/
     animation: fadeIn 0.3s;
 }
 
 .modal-content {
     background-color: #fefefe;
-    margin: 5% auto; 
+    margin: 5% auto;
     padding: 30px;
     border-radius: 20px;
     width: 90%;
@@ -210,52 +210,87 @@
     z-index: 10;
 }
 
-.close-btn:hover { color: #2D5BFF; }
+.close-btn:hover {
+    color: #2D5BFF;
+}
 
-@keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
-@keyframes slideIn { from {transform: translateY(-50px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
 
 /* =========================================
    NOUVEAU : STYLE DU FORMULAIRE DANS LE MODAL
    ========================================= */
-.project-create-form { 
-    display: flex; 
-    flex-direction: 
-    column; gap: 5px; 
-}
-.form-id, .form-name, .form-details, .form-collaborators { 
-    display: flex; 
-    flex-direction: 
-    column; gap: 8px; 
-    margin-bottom: 15px; 
+.project-create-form {
+    display: flex;
+    flex-direction:
+        column;
+    gap: 5px;
 }
 
-.modal-content label { 
-    font-size: 14px; font-weight: 700; color: #1B2559; margin-left: 4px; 
+.form-id,
+.form-name,
+.form-details,
+.form-collaborators {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 15px;
 }
 
-.modal-content input[type="text"], 
+.modal-content label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1B2559;
+    margin-left: 4px;
+}
+
+.modal-content input[type="text"],
 .modal-content textarea {
     padding: 12px 20px;
-    border: 1px solid #E0E5F2; 
-    border-radius: 12px;      
+    border: 1px solid #E0E5F2;
+    border-radius: 12px;
     font-size: 14px;
     color: #1B2559;
     width: 100%;
-    box-sizing: border-box; 
+    box-sizing: border-box;
     font-family: 'Segoe UI', sans-serif;
     background-color: #FFFFFF;
 }
 
-.modal-content input:focus, .modal-content textarea:focus {
-    outline: none; border-color: #2D5BFF; box-shadow: 0 0 0 4px rgba(45, 91, 255, 0.1);
+.modal-content input:focus,
+.modal-content textarea:focus {
+    outline: none;
+    border-color: #2D5BFF;
+    box-shadow: 0 0 0 4px rgba(45, 91, 255, 0.1);
 }
 
-.modal-content textarea { min-height: 100px; resize: vertical; }
+.modal-content textarea {
+    min-height: 100px;
+    resize: vertical;
+}
 
 .modal-content button[type="submit"] {
     width: 100%;
-    background-color: #2D5BFF; 
+    background-color: #2D5BFF;
     color: white;
     border: none;
     padding: 14px;
@@ -266,27 +301,32 @@
     transition: all 0.3s ease;
     margin-top: 10px;
 }
-.modal-content button[type="submit"]:hover { 
-    background-color: #2449CC; 
+
+.modal-content button[type="submit"]:hover {
+    background-color: #2449CC;
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(45, 91, 255, 0.2);
 }
 
-.error-text { 
-    background-color: #cb9297; 
-    color: #721C24; 
-    border-radius: 8px; 
-    padding: 8px; 
-    font-size: 12px; 
-    text-align: center; 
+.error-text {
+    background-color: #cb9297;
+    color: #721C24;
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 12px;
+    text-align: center;
     margin-top: 5px;
 }
-.hidden { display: none; }
+
+.hidden {
+    display: none;
+}
 
 
 
 .success {
-    position: fixed; /* Fixé par rapport à l'écran */
+    position: fixed;
+    /* Fixé par rapport à l'écran */
     bottom: 20px;
     right: 20px;
     background-color: #27ae60;
@@ -296,13 +336,14 @@
     font-family: 'Segoe UI', sans-serif;
     font-weight: 600;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    z-index: 2000; /* Très haut pour être au dessus du modal */
+    z-index: 2000;
+    /* Très haut pour être au dessus du modal */
     transition: all 0.5s ease-in-out;
 }
 
 .create-project-title {
-    color: #1B2559; 
-    margin-top:0;
+    color: #1B2559;
+    margin-top: 0;
 }
 
 .center {

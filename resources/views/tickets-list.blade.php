@@ -53,7 +53,7 @@
             <section class = "my-tickets-list">
                 <div class="ticket-list-header">
                     <h1 class="projects-list-title">Ticket List</h1>
-                    <a href="#" id="openTicketModalBtn" class="projects-list-create-btn">New ticket</a>
+                    <a href="#" id="openTicketModalBtn" class="projects-list-create-btn" onclick="openTicketModal()">New ticket</a>
                 </div>
 
                 <div class="above-ticket-table">
@@ -109,7 +109,7 @@
 
     <div id="ticketModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn">&times;</span>
+            <span class="close-btn" onclick="closeTicketModal()">&times;</span>
             
             <h2>Create a new Ticket</h2>
 
@@ -188,7 +188,7 @@
                 
 
                 <div class="form-btn-container">
-                    <button type="submit" class="submit-btn" >Create Ticket</button>
+                    <button type="submit" class="submit-btn" onclick="closeTicketModal()">Create Ticket</button>
                 </div>
             </form>
 

@@ -21,8 +21,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-
-
     Route::get('/my-account', [accountController::class, 'myAccount'])->name('my-account');
     Route::post('/my-account/update-password', [accountController::class, 'updatePassword'])->name('my-account.password.update');
 
@@ -35,12 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [dashboardController::class, 'dashboard'])->name('dashboard');
 
     Route::get('/project-detail/{id}', [projectDetailController::class, 'projectDetail'])->name('project-detail');
-    Route::post('/project-detail/update', [projectDetailController::class, 'updateProject'])->name('project-detail.update');
-    Route::post('/project-detail/ticketCreate', [projectDetailController::class, 'createTicket'])->name('project-detail.ticket.create');
-    Route::delete('/project-detail/ticketDelete', [projectDetailController::class, 'projectDetaildeleteT'])->name('project-detail.ticket.delete');
-
+    
     Route::get('/ticket-detail/{id}', [ticketDetailController::class, 'ticketDetail'])->name('ticket-detail');
-    Route::post('/ticket-detail/update', [ticketDetailController::class, 'updateTicket'])->name('ticket-detail.update');
 });
 
 require __DIR__.'/auth.php';

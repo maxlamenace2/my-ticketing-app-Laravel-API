@@ -1,38 +1,24 @@
+function openTicketModal() {
+    document.getElementById('ticketModal').style.display = 'block';
+}
+function closeTicketModal() {
+    document.getElementById('ticketModal').style.display = 'none';
+}
+
 
 document.addEventListener("DOMContentLoaded", function() {
 
-    const modal = document.getElementById("ticketModal");
-    const btn = document.getElementById("openTicketModalBtn");
-    const span = document.getElementsByClassName("close-btn")[0];
-
-    if (btn && modal && span) {   
-        btn.onclick = function(event) {
-            event.preventDefault(); 
-            modal.style.display = "block";
-        }
-
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }   
-    } else {
-        console.error("Erreur : Le modal, le bouton d'ouverture ou la croix de fermeture est introuvable.");
-    }
-
+    
 
 
 
     // ==========================================
     // 2. GESTION DU FORMULAIRE API (AJAX)
     // ==========================================
+    
     const formTicket = document.getElementById('api-ticket-form');
 
-    const tableBody = document.querySelector('.ticket-table-list tbody') || document.querySelector('table tbody');
+    const tableBody = document.querySelector('.ticket-table-list tbody') 
 
     if(formTicket) {
         formTicket.addEventListener('submit', function(event) {

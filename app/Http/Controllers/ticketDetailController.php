@@ -21,35 +21,30 @@ class ticketDetailController extends Controller
         return view('ticket-detail', compact('ticket', 'project'));
     }
 
-    public function updateTicket(Request $request)
+
+    public function updateApiTicket(Request $request, $id)
     {
-        $validated = $request->validate([
-            'ticket_id'       => 'required|integer|exists:tickets,id',
-            'title'           => 'required|string|max:255', 
-            'status'          => 'required|string',        
-            'priority'        => 'nullable|string',         
-            'billing_type'    => 'nullable|string',         
-            'time_spent'      => 'nullable|string',         
-            'description'     => 'nullable|string',         
-            'assigned_to'     => 'nullable|string',         
-        ]);
-        
-        $ticket = Ticket::findOrFail($validated['ticket_id']);
-        if (Auth::id() !== $ticket->project->user_id) {
-            abort(403, 'Action non autorisée.');
+        $ticket = Ticket::findOrFail($id);
+
+        if (Auth::id() != $ticket->project->user_id) {
+            return response()->json(['message' => 'Non autorisé.'], 403);
         }
-        
-        $ticket->update([
-            'title'        => $validated['title'],
-            'description'  => $validated['description'],
-            'status'       => $validated['status'],
-            'priority'     => $validated['priority'],
-            'billing_type' => $validated['billing_type'],
-            'time_spent'   => $validated['time_spent'],
-            'assigned_to'  => $validated['assigned_to'],
+
+        $validated = $request->validate([
+            'title'        => 'required|string|max:255',
+            'status'       => 'required|string',
+            'priority'     => 'nullable|string',
+            'billing_type' => 'nullable|string',
+            'time_spent'   => 'nullable|string',
+            'description'  => 'nullable|string',
+            'assigned_to'  => 'nullable|string',
         ]);
 
-        return back()->with('success', 'Le ticket a été mis à jour avec succès !');
+        $ticket->update($validated);
 
+        return response()->json([
+            'message' => 'Ticket mis à jour avec succès !',
+            'ticket'  => $ticket
+        ]);
     }
 }

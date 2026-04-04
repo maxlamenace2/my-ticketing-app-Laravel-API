@@ -29,34 +29,38 @@ class projectDetailController extends Controller
 
         return view('project-detail', compact('project', 'tickets'));
     }
-    public function updateProject(Request $request)
+    
+    public function updateApiProject(Request $request, $id)
     {
-        $validated = $request->validate([
-            'project_id' => 'required|integer|exists:projects,id', 
-            'project_name' => 'required|string|max:255',
-            'project_description' => 'nullable|string',
-            'collaborateurs' => 'nullable|string|max:255',
-            'hours_spent' => 'nullable|numeric|min:0', 
-            'hours_budget' => 'nullable|numeric|min:0',
-        ]);
+        $project = Project::findOrFail($id);
 
-        $project = Project::findOrFail($validated['project_id']);
-
-        if (Auth::id() !== $project->user_id) {
-            abort(403, 'Vous n\'êtes pas autorisé à modifier ce projet.');
+        if (Auth::id() != $project->user_id) {
+            return response()->json(['message' => 'Non autorisé.'], 403);
         }
 
-        $project->update([
-            'ProjectName' => $validated['project_name'],
-            'Description' => $validated['project_description'],
-            'Collaborateur' => $validated['collaborateurs'],
-            'spent_hours' => $validated['hours_spent'] ?? 0,
-            'allocated_hours' => $validated['hours_budget'] ?? 0,
+        $validated = $request->validate([
+            'project_name'        => ['required', 'string', 'max:255'],
+            'project_description' => ['nullable', 'string'],
+            'collaborateurs'      => ['nullable', 'string', 'max:255'],
+            'hours_spent'         => ['nullable', 'numeric'], 
+            'hours_budget'        => ['nullable', 'numeric'], 
         ]);
 
-        return back()->with('success', 'Le projet a été mis à jour avec succès !');
+        $project->update([
+            'ProjectName'     => $validated['project_name'],
+            'Description'     => $validated['project_description'],
+            'Collaborateur'   => $validated['collaborateurs'],
+            'spent_hours'     => $validated['hours_spent'] ?? 0,    
+            'allocated_hours' => $validated['hours_budget'] ?? 0,  
+        ]);
+
+        return response()->json([
+            'message' => 'Projet mis à jour avec succès !',
+            'project' => $project
+        ]);
     }
-    public function createTicket(Request $request)
+
+    /*public function createTicket(Request $request)
     {
         $validated = $request->validate([
             'project_id'      => 'required|integer|exists:projects,id',
@@ -89,20 +93,15 @@ class projectDetailController extends Controller
         return back()->with('success', 'Le ticket a été ajouté au projet !');
     }
 
-    public function projectDetaildeleteT(Request $request)
+    public function destroyApiTicketP($id)
     {
-        $validated = $request->validate([
-            'ticket_id' => 'required|integer|exists:tickets,id',
-        ]);
-
-        $ticket = Ticket::findOrFail($validated['ticket_id']);
-
-        if (Auth::id() !== $ticket->project->user_id) {
-            abort(403, 'Vous n\'êtes pas autorisé à supprimer ce ticket.');
+        $ticket = Ticket::findOrFail($id);
+        
+        if (Auth::id() != $ticket->project->user_id) {
+            return response()->json(['message' => 'Non autorisé.'], 403);
         }
-
+        
         $ticket->delete();
-
-        return back()->with('success', 'Le ticket a été supprimé avec succès !');
-    }
+        return response()->json(['message' => 'Ticket supprimé avec succès.']);
+    }*/
 }
