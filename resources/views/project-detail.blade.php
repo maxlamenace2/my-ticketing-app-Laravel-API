@@ -51,7 +51,6 @@
             </nav>
         </aside>
 
-
         <main>
             <section class="my-project-info">
                 <div class="my-project-info-container-1">
@@ -85,17 +84,32 @@
             <section class="my-project-info-2">
                 <div class="my-project-info-container-3">
                     <div class="my-project-info-container-2-contract">
-                        <button id="btn-download" class="my-project-info-button" disabled>Download Contract</button>
+                        <form id="contract-upload-form" class = "formContract">
+                            @csrf        
+                            <a href="{{ $project->contract_file_path ? asset('storage/' . $project->contract_file_path) : '#' }}" 
+                                id="btn-download" 
+                                class="my-project-info-button" 
+                                target="_blank"
+                                style="{{ $project->contract_file_path ? '' : 'pointer-events: none; opacity: 0.5;' }}">
+                                Download Contract
+                            </a>
 
-                        <button id="btn-upload" class="my-project-info-button">Upload Contract</button>
+                            <button type="button" id="btn-upload" class="my-project-info-button">Upload Contract</button>
 
-                        <input type="file" id="real-file-input" style="display: none;">
+                            <button type="button" id="btn-delete-contract" class="my-project-info-button"
+                                    style="{{ $project->contract_file_path ? '' : 'display: none;' }}">
+                                Remove Contrat
+                            </button>
 
-                        <span id="file-name-display" class="file-name"></span>
+                            <input type="file" id="real-file-input" style="display: none;" accept=".pdf,.doc,.docx" data-project-id="{{ $project->id }}">
+
+                            <span id="file-name-display" class="file-name" class="ContractName">
+                                {{ $project->contract_file_name ? $project->contract_file_name : 'Aucun contrat' }}
+                            </span> 
+                        </form>
                     </div>
                 </div>
             </section>
-
 
             <section class="my-project-tickets">
                 <div class="projects-list-header">
@@ -143,7 +157,7 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <form action="{{ route('api.tickets.destroy', $ticket->id) }}" method="POST" class="api-delete-ticket" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce ticket ?');">
+                                        <form action="{{ route('tickets.destroy', $ticket->id) }}" method="POST"></form>
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="project-remove_btn">Remove</button>
@@ -155,13 +169,16 @@
                     </tbody>
                 </table>
             </section>
+            @if(session('success'))
+                <div id="toast-update" class="toastUpdate show">
+                    {{ session('success') }}
+                </div>
+            @endif
             <div id="update-project-toats-success" class="toastUpdate">
                 Projet mis à jour avec succès !
             </div>
         </main>
     </div>
-
-
 
     <div id="ProjetModal" class="modal0">
         <div class="Project-modal-cotent">
@@ -169,7 +186,7 @@
 
             <h2 class="Project-Modal-title">Modify the project</h2>
 
-            <form id="api-update-project-form" class="project-modal-modify-form" action="{{ route('api.projects.update', $project->id) }}" method="POST">
+            <form class="project-modal-modify-form" action="{{ route('projects.update', $project->id) }}" method="POST">
                 @csrf
                 @method('PUT') 
 
@@ -211,7 +228,7 @@
 
             <h2 class="ticketModal-title">Create a new Ticket</h2>
 
-            <form id="tickets_create_form" class="ticket-create-form" action="{{ route('api.tickets.store') }}" method="POST">
+            <form class="ticket-create-form" action="{{ route('tickets.store') }}" method="POST">
                 @csrf
                 
                 <input type="hidden" name="project_id" value="{{ $project->id }}">
@@ -260,8 +277,19 @@
                         <label for="real-time">Real Time Spent</label>
                         <input id="ticketTime" type="text" name="time_spent" placeholder="Ex: 2h 30m">
                         <div id="ticket-time-error-void" class="error-text hidden">Les heures sont obligatoires</div>
-                        <div id="ticket-time-error-format" class="error-text hidden">Mauvais format : Format demandé :
-                            ..h ..m</div>
+                        <div id="ticket-time-error-format" class="error-text hidden">Mauvais format : Format demandé : ..h ..m</div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ticket-start-date">Start Date</label>
+                        <input type="date" id="ticket-start-date" name="start_date">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ticket-end-date">End Date</label>
+                        <input type="date" id="ticket-end-date" name="end_date">
                     </div>
                 </div>
 
@@ -288,10 +316,7 @@
             </div>
         </div>
     </div>
-
     <script src="{{ asset('js/script.js') }}"></script>
     <script src="{{ asset('js/project-detail.js') }}"></script>
-
 </body>
-
 </html>

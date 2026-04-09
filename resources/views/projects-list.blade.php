@@ -54,7 +54,7 @@
                 
                 <div class="projects-list-header">
                     <h1 class="projects-list-title">Projects List</h1>
-                    <a href="#" id="openModalBtn" class="projects-list-create-btn">+ Create New Project</a>    
+                    <a href="#" id="openModalBtn" class="projects-list-create-btn" onclick="openProjectModal()">+ Create New Project</a>    
                 </div>
 
                 <div class="table-container">
@@ -74,7 +74,7 @@
                                 <tr>
                                     <td>{{ $project->ProjectName }}</td>
                                     <td>
-                                        <span style="font-weight: 600; color: #2D5BFF;">
+                                        <span class = "ClientName">
                                             {{ $project->Client }}
                                         </span>
                                     </td>
@@ -84,10 +84,9 @@
                                     </td>
                                     <td class="center"> 
                                         <a href="{{ route('project-detail', $project->id) }}" class="project-open_btn">Open</a>
-                                        <!-- mettre id dasn le lien du bouton}-->
                                     </td>
                                     <td class="center"> 
-                                        <form action="{{ route('api.projects.destroy', $project->id) }}" method="POST" class="api-delete-project">
+                                        <form class="api-delete-project" data-id="{{ $project->id }}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="project-remove_btn">Remove</button>
@@ -98,18 +97,20 @@
                         </tbody>
                     </table>
                 </div>
-
             </section>
+            <div id="toast-create" class="toastCreate">
+                <P>Projet ajouté avec succès.</p>
+            </div>
         </main>
     </div>
 
     <dialog id="projectModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn">&times;</span>
+            <span class="close-btn" onclick="closeProjectModal()">&times;</span>
             
             <h2 class="create-project-title">Create a new Project</h2>
             
-            <form id="api-project-form" class="project-create-form" action="{{ route('api.projects.store') }}" method="POST">
+            <form id="api-project-form" class="project-create-form">
                 @csrf
                 <div class="form-name">
                     <label for="projectName">Project Name:</label>
@@ -134,12 +135,13 @@
                     <div id="project-collaborators-error-void" class="error-text hidden">Les collaborateurs sont obligatoires</div>
                 </div>
                 
-                <button type="submit" style="margin-top: 20px;">Create Project</button>
+                <button type="submit" onclick="closeProjectModal()">Create Project</button>
             </form>
             
             <div id="success" class="success hidden">
                 <h4>Project created</h4>
             </div>
+
         </div>
     </dialog>
 

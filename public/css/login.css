@@ -164,3 +164,8 @@ body {
     opacity: 1;
     bottom: 40px; 
 }
+
+.error-message{
+    color: red; 
+    font-size: 12px;
+}

@@ -10,7 +10,6 @@ class accountController extends Controller
 {
     public function myAccount()
     {
-       
         $user = Auth::user(); 
         return view('my-account', compact('user'));
     }

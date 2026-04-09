@@ -108,7 +108,7 @@
    ========================================= */
 .dashboard-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: collapse; /*tableau 1 seul bordure*/
 }
 
 /* En-têtes */

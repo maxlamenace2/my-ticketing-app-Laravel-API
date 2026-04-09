@@ -27,12 +27,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/parametre', [parametreController::class, 'Parametre'])->name('parametre');
 
     Route::get('/projects-list', [projectListController::class, 'projectsList'])->name('projects-list');
-
+    
     Route::get('/tickets-list', [ticketListController::class, 'ticketList'])->name('tickets-list');
+    Route::post('/tickets-list', [ticketListController::class, 'store'])->name('tickets.store');
+    Route::delete('/tickets-list/{id}', [ticketListController::class, 'destroy'])->name('tickets.destroy');
 
     Route::get('/dashboard', [dashboardController::class, 'dashboard'])->name('dashboard');
 
     Route::get('/project-detail/{id}', [projectDetailController::class, 'projectDetail'])->name('project-detail');
+    Route::put('/project-detail/{id}', [projectDetailController::class, 'update'])->name('projects.update');
     
     Route::get('/ticket-detail/{id}', [ticketDetailController::class, 'ticketDetail'])->name('ticket-detail');
 });

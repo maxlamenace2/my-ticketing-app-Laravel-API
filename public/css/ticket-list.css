@@ -254,6 +254,7 @@
     flex-direction: column;
     gap: 8px;
     flex: 1; 
+    padding-bottom: 2%;
 }
 
 .modal-content label {
@@ -264,6 +265,7 @@
 }
 
 .modal-content input[type="text"],
+.modal-content input[type="date"],
 .modal-content select,
 .modal-content textarea {
     padding: 12px 15px;
@@ -279,6 +281,7 @@
 
 .modal-content input:focus, 
 .modal-content select:focus, 
+.modal-content input[type="date"]:focus,
 .modal-content textarea:focus {
     outline: none;
     border-color: #2D5BFF;
@@ -343,6 +346,33 @@
 .filterEmptyT{
     text-align: center; padding: 20px; font-weight: 600; color: #8F9BBA;
 }
+
+.toastCreate {
+    position: fixed; 
+    bottom: 30px; 
+    right: 30px;
+    padding: 15px 25px;
+    color: white;
+    background-color: #2D5BFF; 
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
+    z-index: 999999; 
+    
+    opacity: 0;
+    visibility: hidden; 
+    transform: translateY(30px);
+    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease;
+}
+
+.toastCreate.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+
 
 
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Ticket;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class projectDetailController extends Controller
 {
@@ -30,12 +31,12 @@ class projectDetailController extends Controller
         return view('project-detail', compact('project', 'tickets'));
     }
     
-    public function updateApiProject(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $project = Project::findOrFail($id);
 
         if (Auth::id() != $project->user_id) {
-            return response()->json(['message' => 'Non autorisé.'], 403);
+            abort(403, 'Non autorisé.'); 
         }
 
         $validated = $request->validate([
@@ -54,54 +55,66 @@ class projectDetailController extends Controller
             'allocated_hours' => $validated['hours_budget'] ?? 0,  
         ]);
 
-        return response()->json([
-            'message' => 'Projet mis à jour avec succès !',
-            'project' => $project
-        ]);
+        return redirect()->back()->with('success', 'Projet mis à jour avec succès !');
     }
 
-    /*public function createTicket(Request $request)
+    public function uploadContract(Request $request, $id)
     {
-        $validated = $request->validate([
-            'project_id'      => 'required|integer|exists:projects,id',
-            'project-name'    => 'required|string|max:255', 
-            'ticket-status'   => 'required|string',
-            'ticket-priority' => 'nullable|string',
-            'ticket-type'     => 'nullable|string',
-            'real-time'       => 'nullable|string',
-            'project-details' => 'nullable|string', 
-            'assigned_to'     => 'nullable|string',
-        ]);
+        $project = Project::findOrFail($id);
 
-        $project = Project::findOrFail($validated['project_id']);
-        if (Auth::id() !== $project->user_id) {
-            abort(403, 'Action non autorisée.');
-        }
-
-        Ticket::create([
-            'project_id'   => $validated['project_id'],
-            'user_id'      => Auth::id(),
-            'title'        => $validated['project-name'],
-            'description'  => $validated['project-details'],
-            'status'       => $validated['ticket-status'],
-            'priority'     => $validated['ticket-priority'],
-            'billing_type' => $validated['ticket-type'],
-            'time_spent'   => $validated['real-time'],
-            'assigned_to'  => $validated['assigned_to'],
-        ]);
-
-        return back()->with('success', 'Le ticket a été ajouté au projet !');
-    }
-
-    public function destroyApiTicketP($id)
-    {
-        $ticket = Ticket::findOrFail($id);
-        
-        if (Auth::id() != $ticket->project->user_id) {
+        if (Auth::id() != $project->user_id) {
             return response()->json(['message' => 'Non autorisé.'], 403);
         }
+
+        $request->validate([
+            'contract_file' => 'required|file|mimes:pdf,doc,docx|max:5120',
+        ]);
+
+        if ($request->hasFile('contract_file')) {
+            $file = $request->file('contract_file');
+            
+            $originalName = $file->getClientOriginalName();
+            
+            $filename = time() . '_' . $originalName;  
+            $path = $file->storeAs('contracts', $filename, 'public'); // enregistre fichier dans laravel
+
         
-        $ticket->delete();
-        return response()->json(['message' => 'Ticket supprimé avec succès.']);
-    }*/
+            $project->update([
+                'contract_file_path' => $path,
+                'contract_file_name' => $originalName 
+            ]);
+
+            return response()->json([
+                'message'   => 'Contrat uploadé avec succès !',
+                'file_name' => $originalName, 
+                'file_url'  => asset('storage/' . $path) 
+            ]);
+        }
+
+        return response()->json(['message' => 'Aucun fichier reçu.'], 400);
+    }
+
+    public function deleteContract($id)
+    {
+        $project = Project::findOrFail($id);
+
+        if (Auth::id() != $project->user_id) {
+            return response()->json(['message' => 'Non autorisé.'], 403);
+        }
+
+        
+        if ($project->contract_file_path) {
+            
+            Storage::disk('public')->delete($project->contract_file_path);
+
+            $project->update([
+                'contract_file_path' => null,
+                'contract_file_name' => null
+            ]);
+
+            return response()->json(['message' => 'Contrat supprimé avec succès.']);
+        }
+
+        return response()->json(['message' => 'Aucun contrat à supprimer.'], 400);
+    }
 }

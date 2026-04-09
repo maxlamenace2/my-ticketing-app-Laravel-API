@@ -17,6 +17,8 @@ class Ticket extends Model
         'billing_type',
         'time_spent',
         'assigned_to',
+        'start_date', 
+        'end_date',  
     ];
 
     //ticket appartient à un projet

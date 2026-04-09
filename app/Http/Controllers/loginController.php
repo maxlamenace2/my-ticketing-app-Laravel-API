@@ -14,16 +14,14 @@ class loginController extends Controller
 
     public function loginProcess(Request $request)
     {
-        
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
-        
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->route('dashboard'); 
+            $request->session()->regenerate(); // change id session new
+            return redirect()->route('dashboard');  
         }
 
         return  redirect()->route('login'); 

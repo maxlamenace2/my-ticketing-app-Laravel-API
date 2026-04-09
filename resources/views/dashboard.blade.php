@@ -18,8 +18,7 @@
             
         </div>
 
-        <div class="header-controls">
-            
+        <div class="header-controls">          
             <a href="{{ route('my-account') }}" class="icon-link">
                 <img src="{{ asset('img/account_logo.png') }}" alt="Mon Compte">
             </a>
@@ -62,7 +61,7 @@
                     <h3 class="box-title-left">Ticket Past Due</h3>
                     <div class="stat-content-left">
                         <div class="stat-icon">⚠️</div> 
-                        <span class="stat-number-left">5</span>
+                        <span class="stat-number-left">{{ $pastDueTickets }}</span>
                     </div>
                 </div>
 
@@ -70,7 +69,7 @@
                     <h3 class="box-title-left">New Tickets Today</h3>
                     <div class="stat-content-left">
                         <div class="stat-icon">Wait</div>
-                        <span class="stat-number-left">45</span>
+                        <span class="stat-number-left">{{ $newTicketsToday }}</span>
                     </div>
                 </div>
 
@@ -78,7 +77,7 @@
                     <h3 class="box-title-left">Tickets Closed Today</h3>
                     <div class="stat-content-left">
                         <div class="stat-icon">✔</div>
-                        <span class="stat-number-left">22</span>
+                        <span class="stat-number-left">{{ $closedTicketsToday }}</span>
                     </div>
                 </div>
             </section>
@@ -96,9 +95,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!--<tr>
-                                <td colspan="3" style="text-align: center; color: #8F9BBA;"> Aucun ticket payant</td>
-                            </tr>-->
                             @foreach ($tickets as $ticket)
                                 @if ($ticket->billing_type == "billable")
                                     <tr>
@@ -171,12 +167,7 @@
                                 <th style="text-align: right;">Project</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <!--
-                                <tr>
-                                    <td colspan="2" style="text-align: center; color: #8F9BBA;">Aucun client trouvé</td>
-                                </tr>
-                            -->    
+                        <tbody>   
                             @foreach ($projects as $project)
                                 <tr>
                                     <td style="display: flex; justify-content: center; flex-direction: column;">

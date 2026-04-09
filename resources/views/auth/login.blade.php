@@ -32,7 +32,7 @@
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="nom@exemple.com" required autofocus>
                     @error('email')
-                        <span style="color: red; font-size: 12px;">{{ $message }}</span>
+                        <span class = "error-message">{{ $message }}</span>
                     @enderror
                 </div>
                 
@@ -40,7 +40,7 @@
                     <label for="password">Mot de passe</label>
                     <input type="password" id="password" name="password" placeholder="••••••••" required>
                     @error('password')
-                        <span style="color: red; font-size: 12px;">{{ $message }}</span>
+                        <span class = "error-message">{{ $message }}</span>
                     @enderror
                 </div>
             </div>

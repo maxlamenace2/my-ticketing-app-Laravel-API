@@ -93,7 +93,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <form action="{{ route('api.tickets.destroy', $ticket->id) }}" method="POST" class="api-delete-ticket">
+                                    <form action="{{ route('tickets.destroy', $ticket->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce ticket ?');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="ticket-remove_btn">Remove</button>
@@ -104,6 +104,11 @@
                     </tbody>
                 </table>
             </section>
+            @if(session('success'))
+                <div id="toast-success" class="toastCreate show">
+                    {{ session('success') }}
+                </div>
+            @endif
         </main>
     </div>
 
@@ -113,10 +118,8 @@
             
             <h2>Create a new Ticket</h2>
 
-            <form id="api-ticket-form" action="{{ route('api.tickets.store') }}" method="POST">
+            <form action="{{ route('tickets.store') }}" method="POST">
                 @csrf
-
-                
 
                 <div class="form-row">
                     <div class="form-group">
@@ -172,6 +175,18 @@
                     <div class="form-group">
                         <label for="real-time">Real Time Spent</label>
                         <input id="ticketTime" type="text" name="time_spent" placeholder="Ex: 2h 30m">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ticket-start-date">Start Date</label>
+                        <input type="date" id="ticket-start-date" name="start_date">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ticket-end-date">End Date</label>
+                        <input type="date" id="ticket-end-date" name="end_date">
                     </div>
                 </div>
 

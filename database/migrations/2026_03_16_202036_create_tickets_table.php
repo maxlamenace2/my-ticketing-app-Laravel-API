@@ -25,6 +25,9 @@ return new class extends Migration
             $table->string('billing_type')->nullable(); 
             $table->string('time_spent')->nullable(); 
             $table->string('assigned_to')->nullable(); 
+
+            $table->date('start_date')->nullable(); 
+            $table->date('end_date')->nullable();   
             
             $table->timestamps();
         });

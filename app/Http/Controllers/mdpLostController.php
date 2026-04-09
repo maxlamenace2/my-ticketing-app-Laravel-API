@@ -13,8 +13,6 @@ class mdpLostController extends Controller
 
     public function mdpLostProcess(Request $request)
     {
-        // Valider et enregistrer l'utilisateur ici
-        // dd($request->all()); // Pour tester si les données arrivent bien
         return view('mdp-lost');
     }
 }

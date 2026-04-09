@@ -21,6 +21,8 @@ return new class extends Migration
             $table->integer('spent_hours')->default(0);     
             $table->integer('allocated_hours')->default(0); 
             $table->timestamps();
+            $table->string('contract_file_path')->nullable();
+            $table->string('contract_file_name')->nullable();
         });
     }
 

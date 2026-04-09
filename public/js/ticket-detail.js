@@ -19,48 +19,71 @@ document.addEventListener('DOMContentLoaded', function() {
     const descriptionT = document.querySelector('.ticket-detail-section-description .value');
     const collaboratorT = document.querySelector('.ticket-detail-section-collaborators .collaborators-list .value');
 
+    const datesT = document.querySelector('.ticket-detail-section-dates .value');
 
     if(updateForm) {
-        updateForm.addEventListener('submit', function(event) {
+        updateForm.addEventListener('submit', async function(event) {
             event.preventDefault(); 
 
-            const formData = new FormData(updateForm);
+            const data = {
+                "title": updateForm.querySelector('input[name="title"]').value,
+                "status": updateForm.querySelector('select[name="status"]').value,
+                "priority": updateForm.querySelector('select[name="priority"]').value,
+                "billing_type": updateForm.querySelector('select[name="billing_type"]').value,
+                "time_spent":updateForm.querySelector('input[name="time_spent"]').value,
+                "start_date":updateForm.querySelector('input[name="start_date"]').value,
+                "end_date":updateForm.querySelector('input[name="end_date"]').value,
+                "description":updateForm.querySelector('textarea[name="description"]').value,
+                "assigned_to":updateForm.querySelector('input[name="assigned_to"]').value,
+            };
 
-            fetch(updateForm.action, {
-                method: 'POST', 
+            const formData = JSON.stringify(data)
+
+            const csrfToken = updateForm.querySelector('input[name="_token"]').value;
+
+            const id = updateForm.getAttribute("ticket-id");
+
+            const response = await fetch(`/api/tickets/${id}`, {
+                method: 'PUT', 
                 headers: {
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
+                    "Content-Type": 'application/json',
+                    'X-CSRF-TOKEN': csrfToken,
                 },
                 body: formData
             })
-            .then(async response => {
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.message || "Erreur de mise à jour");
-                }
-                return response.json();
-            })
-            .then(data => {
-                titreT.innerText = data.ticket.title || '';
-                statusT.innerText = data.ticket.status || '';
-                priorityT.innerText = data.ticket.priority || '';
-                billing_typeT.innerText = data.ticket.billing_type  || '';
-                time_spentT.innerText = data.ticket.time_spent || '';
-                descriptionT.innerText = data.ticket.description || '';
-                collaboratorT.innerText = data.ticket.assigned_to || '';
-                closeEditModal();
 
-                toastUpdateSuccess.classList.add('show');
-                toastUpdateSuccess.innerText = data.message; 
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error("Détail de l'erreur Laravel:", errorData);
+                throw new Error(errorData.message || "Erreur lors de la création");
+            }
+            const message = await response.json();
+        
 
-                setTimeout(() => {
-                    toastUpdateSuccess.classList.remove('show');
-                }, 3000);
-            })
-            .catch(error => {
-                console.error('Erreur API :', error);
-                alert("Erreur lors de la mise à jour : " + error.message);
-            });
+        
+            titreT.innerText = message.ticket.title || '';
+            statusT.innerText = message.ticket.status || '';
+            priorityT.innerText = message.ticket.priority || '';
+            billing_typeT.innerText = message.ticket.billing_type  || '';
+            time_spentT.innerText = message.ticket.time_spent || '';
+            descriptionT.innerText = message.ticket.description || '';
+            collaboratorT.innerText = message.ticket.assigned_to || '';
+
+            if (datesT) {
+                let start = message.ticket.start_date ? message.ticket.start_date.split('-').reverse().join('/') : 'N/A';
+                let end = message.ticket.end_date ? message.ticket.end_date.split('-').reverse().join('/') : 'N/A';
+                datesT.innerText = `Début : ${start} | Fin : ${end}`;
+            }
+
+            closeEditModal();
+
+            toastUpdateSuccess.classList.add('show');
+            toastUpdateSuccess.innerText = message.message; 
+
+            setTimeout(() => {
+                toastUpdateSuccess.classList.remove('show');
+            }, 3000);  
         });
     }
 });

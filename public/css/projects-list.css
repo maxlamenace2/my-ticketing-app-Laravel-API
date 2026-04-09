@@ -349,3 +349,33 @@
 .center {
     text-align: center;
 }
+
+.ClientName{
+    font-weight: 600; 
+    color: #2D5BFF;
+}
+
+.toastCreate {
+    position: fixed; 
+    bottom: 30px; 
+    right: 30px;
+    padding: 15px 25px;
+    color: white;
+    background-color: #2D5BFF; 
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
+    z-index: 999999; 
+    
+    opacity: 0;
+    visibility: hidden; 
+    transform: translateY(30px);
+    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease;
+}
+
+.toastCreate.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}

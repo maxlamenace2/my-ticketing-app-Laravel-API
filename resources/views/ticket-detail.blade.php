@@ -113,6 +113,16 @@
                     <button class="edit-btn" onclick="openEditModal()" >Edit</button>
                 </div>
 
+                <div class="detail-row ticket-detail-section-dates">
+                    <div class="info-group">
+                        <span class="label">Dates</span>
+                        <span class="value">
+                            Début : {{ $formattedStartDate }} | Fin : {{ $formattedEndDate }}
+                        </span>
+                    </div>
+                    <button class="edit-btn" onclick="openEditModal()">Edit</button>
+                </div>
+
                 <div class="detail-row ticket-detail-section-collaborators">
                     <div class="info-group">
                         <span class="label">Assigned To (comma Separated)</span>
@@ -137,7 +147,7 @@
             <span class="close-btn" onclick="closeEditModal()">&times;</span>
             <h2 class="ticketModal-title">Edit Ticket</h2>
 
-            <form id="api-update-ticket-form" action="{{ route('api.tickets.update', $ticket->id) }}" method="POST">
+            <form id="api-update-ticket-form" ticket-id="{{ $ticket->id }}">
                 @csrf
                 @method('PUT') 
             
@@ -186,16 +196,28 @@
                     </div>
                 </div>
 
+                <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label>Start Date</label>
+                        <input type="date" name="start_date" value="{{ $ticket->start_date }}">
+                    </div>
+
+                    <div class="form-group" style="flex: 1;">
+                        <label>End Date</label>
+                        <input type="date" name="end_date" value="{{ $ticket->end_date }}">
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label>Description</label>
                     <textarea name="description" rows="4">{{ $ticket->description }}</textarea>
                 </div>
 
                 <div class="form-group">
+                    <div class="form-group">
                     <label>Assigned To</label>
-                    @if($ticket->assigned_to)
                         <input type="text" name="assigned_to" value="{{ $ticket->assigned_to }}" placeholder="Ex: Maxence">
-                    @endif
+                    </div>
                 </div>
 
                 <button type="submit" class="submit-btn">Save Changes</button>

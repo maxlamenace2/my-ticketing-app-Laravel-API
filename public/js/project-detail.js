@@ -13,140 +13,132 @@ function closeTicketModal() {
     document.getElementById('ticketModal').style.display = 'none';
 }
 
-
-
 document.addEventListener('DOMContentLoaded', function() {
+
+    const updateToast = document.getElementById('toast-update');
     
-    const updateProjectForm = document.getElementById('api-update-project-form');
+    if (updateToast) {
+        
+        updateToast.classList.add('show');
+        setTimeout(() => {
+            updateToast.classList.remove('show');
+        }, 3000);
+    }
+    
+    const btnUpload = document.getElementById('btn-upload');
+    const realFileInput = document.getElementById('real-file-input');
+    const fileNameDisplay = document.getElementById('file-name-display');
+    const btnDownload = document.getElementById('btn-download');
+    const uploadStatus = document.getElementById('upload-status');
+
     const toastUpdateSuccess = document.getElementById('update-project-toats-success');
 
-    const titleElement = document.querySelector('.my-project-info-container-1-name h1.editable');
-    const descElement = document.querySelector('.my-project-info-container-1-details p.editable');
-    const collabElement = document.querySelector('.cololaborators-list');
-    const hoursElement = document.querySelector('.my-project-info-container-1-hours h1.editable');
+    const btnDeleteContract = document.getElementById('btn-delete-contract');
 
-    if(updateProjectForm) {
-        updateProjectForm.addEventListener('submit', function(event) {
-            event.preventDefault(); 
-            const formData = new FormData(updateProjectForm);
-
-            fetch(updateProjectForm.action, {
-                method: 'POST', 
-                headers: {
-                    'Accept': 'application/json'
-                },
-                body: formData
-            })
-            .then(async response => {
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.message || "Erreur de mise à jour");
-                }
-                return response.json();
-            })
-            .then(data => {
-                closeProjectEditModal();
-
-                // 5. ON AFFICHE LE TOAST DE SUCCÈS
-                toastUpdateSuccess.classList.add('show');
-                toastUpdateSuccess.innerText = data.message; 
+    if (btnUpload && realFileInput) {
         
-                setTimeout(() => {
-                    toastUpdateSuccess.classList.remove('show');
-                }, 3000);
+        // 1. Quand on clique sur le faux bouton, on déclenche le vrai input caché
+        btnUpload.addEventListener('click', function() {
+            realFileInput.click();
+        });
 
+        realFileInput.addEventListener('change', function() {
+            if (realFileInput.files.length > 0) {
+                const file = realFileInput.files[0];
                 
-                titleElement.innerText = data.project.ProjectName || '';
-                descElement.innerText = data.project.Description ||'';
+                toastUpdateSuccess.classList.add('show');
+                toastUpdateSuccess.innerText = "Upload en cours...";
 
-                collabElement.innerText = data.project.Collaborateur || '';
+                const projectId = realFileInput.getAttribute('data-project-id');
+                
+              
+                const formData = new FormData();
+                formData.append('contract_file', file); // ce que je recup dans le controller
 
-                hoursElement.innerText = `${data.project.spent_hours}/${data.project.allocated_hours}h` || '';
-            })
-            .catch(error => {
-                console.error('Erreur API :', error);
-                alert("Erreur lors de la mise à jour : " + error.message);
-            });
+                // Envoi à l'API
+                fetch(`/api/projects/${projectId}/upload-contract`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('#contract-upload-form input[name="_token"]').value,
+                        'Accept': 'application/json'
+    
+                    },
+                    body: formData
+                })
+                .then(async response => {
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.message || "Erreur lors de l'upload");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    btnDownload.href = data.file_url;
+                    btnDownload.style.pointerEvents = "auto";
+                    btnDownload.style.opacity = "1";
+
+                    if (fileNameDisplay) {
+                        fileNameDisplay.innerText = data.file_name;
+                    }
+                    
+                    if (btnDeleteContract) {
+                        btnDeleteContract.style.display = "inline-block";
+                    }
+                    
+                    toastUpdateSuccess.classList.add('show');
+                    toastUpdateSuccess.innerText = "✅ " + data.message; 
+            
+                    setTimeout(() => {
+                        toastUpdateSuccess.classList.remove('show');
+                    }, 3000);
+                    })
+                .catch(error => {
+                    console.error('Erreur API :', error);
+                    uploadStatus.innerText = "❌ Erreur";
+                    alert(error.message);
+                });
+            }
         });
     }
-});
-
-
-// ==========================================
-// GESTION DE L'API (CRÉATION TICKET SANS RECHARGEMENT)
-// ==========================================
-document.addEventListener('DOMContentLoaded', function() {
     
-    const createTicketForm = document.getElementById('tickets_create_form');
-    const ticketTableBody = document.querySelector('.ticket-table tbody');
 
-    if(createTicketForm) {
-        createTicketForm.addEventListener('submit', function(event) {
+    if (btnDeleteContract) {
+        btnDeleteContract.addEventListener('click', function() {
             
-            // 1. On bloque le rechargement
-            event.preventDefault(); 
-            
-            const formData = new FormData(createTicketForm);
+            const projectId = realFileInput.getAttribute('data-project-id');
 
-            // 2. On envoie les données à l'API universelle des tickets
-            fetch(createTicketForm.action, {
-                method: 'POST', 
+            fetch(`/api/projects/${projectId}/delete-contract`, {
+                method: 'DELETE',
                 headers: {
+                    'X-CSRF-TOKEN': document.querySelector('#contract-upload-form input[name="_token"]').value,
                     'Accept': 'application/json'
-                },
-                body: formData
+                }
             })
             .then(async response => {
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.message || "Erreur lors de la création");
-                }
+                if (!response.ok) throw new Error("Erreur lors de la suppression");
                 return response.json();
             })
             .then(data => {
-                // 3. Succès : On ferme la modale et on vide le formulaire
-                closeTicketModal();
-                createTicketForm.reset();
-
-                // 4. Si le tableau affichait "Aucun ticket", on enlève cette phrase
-                const emptyMessage = ticketTableBody.querySelector('td[colspan="7"]');
-                if (emptyMessage) {
-                    emptyMessage.parentElement.remove();
-                }
-
-                // 5. On crée le HTML de la nouvelle ligne
-                const newRow = document.createElement('tr');
-                const priorityCapitalized = data.ticket.priority ? data.ticket.priority.charAt(0).toUpperCase() + data.ticket.priority.slice(1) : '';
                 
-                newRow.innerHTML = `
-                    <td>${data.ticket.title}</td>
-                    <td>${data.ticket.description || ''}</td>
-                    <td>
-                        <span style="font-weight: bold; color: #2D5BFF;">${data.ticket.status}</span>
-                    </td>
-                    <td class="status">${priorityCapitalized}</td>
-                    <td>${data.ticket.assigned_to || 'Non assigné'}</td>
-                    <td>
-                        <a href="${data.ticket.show_url}">
-                            <button class="project-open_btn">Open</button>
-                        </a>
-                    </td>
-                    <td>
-                        <form action="${data.ticket.destroy_url}" method="POST" class="api-delete-ticket">
-                            <input type="hidden" name="_token" value="${document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''}">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="project-remove_btn">Remove</button>
-                        </form>
-                    </td>
-                `;
+                btnDownload.href = '#';
+                btnDownload.style.pointerEvents = "none";
+                btnDownload.style.opacity = "0.5";
+                
+               
+                fileNameDisplay.innerText = "Aucun contrat";
+                
+                
+                btnDeleteContract.style.display = "none";
 
-                // 6. On l'ajoute tout en haut de la liste !
-                ticketTableBody.prepend(newRow);
+                
+                realFileInput.value = '';
+
+            
+                toastUpdateSuccess.classList.add('show');
+                toastUpdateSuccess.innerText = "🗑️ " + data.message; 
+                setTimeout(() => toastUpdateSuccess.classList.remove('show'), 3000);
             })
-            .catch(error => {
-                console.error('Erreur API :', error);
-                alert("Erreur : " + error.message);
-            });
+            .catch(error => alert(error.message));
         });
     }
 });

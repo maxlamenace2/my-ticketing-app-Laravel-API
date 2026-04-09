@@ -20,7 +20,6 @@ class projectListController extends Controller
     {
         $project = Project::findOrFail($id);
         
-        // Sécurité : on vérifie que le projet lui appartient
         if(Auth::id() != $project->user_id) {
              return response()->json(['message' => 'Non autorisé.'], 403); 
         }
